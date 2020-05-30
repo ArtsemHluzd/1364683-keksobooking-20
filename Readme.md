@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Отдел Обучения](https://up.htmlacademy.ru/javascript/20/user/1364683).
-* Наставник: `Максим Усиков`.
+* Наставник: `Максим (https://htmlacademy.ru/profile/id939693)`.
 
 ---
 
