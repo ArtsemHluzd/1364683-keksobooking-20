@@ -7,7 +7,7 @@ var getRandomInt = function (min, max) {
   return Math.round(Math.random() * (max - min) + 1);
 };
 
-var generateElement = function (arr) {
+var getRandomElement = function (arr) {
   var random = getRandomInt(0, arr.length - 1);
   return arr[random];
 };
@@ -52,16 +52,16 @@ var createArrAds = function () {
     var xx = '0' + (i + 1);
     var title = 'Обьявление№ ' + (i + 1);
     var price = getRandomInt(10000, 50000);
-    var type = generateElement(types);
+    var type = getRandomElement(types);
     var rooms = getRandomInt(1, 3);
     var guests = getRandomInt(1, 2);
-    var checkin = generateElement(checkinArr);
-    var feature = generateElement(features);
-    var photo = generateElement(photos);
+    var checkin = getRandomElement(checkinArr);
+    var feature = getRandomElement(features);
+    var photo = getRandomElement(photos);
     var description = title + '. ' + 'Стоимость ' + price + ' RUB';
-    // var IntForPhotos = getRandomInt(0, 2);
     var x = getRandomInt(0, mapPins.clientWidth);
     var y = getRandomInt(0, mapPins.clientHeight - 100);
+
     var ad = createAd(xx, title, price, type, rooms, guests, checkin, feature, description, photo, x, y + 100);
     arrAds.push(ad);
   }
