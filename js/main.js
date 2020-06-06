@@ -7,6 +7,11 @@ var getRandomInt = function (min, max) {
   return Math.round(Math.random() * (max - min) + 1);
 };
 
+var generateElement = function (arr) {
+  var random = getRandomInt(0, arr.length - 1);
+  return arr[random];
+};
+
 var createAd = function (xx, title, price, type, rooms, guests, checkin, features, description, photos, x, y) {
   var ad =
   {
@@ -47,18 +52,17 @@ var createArrAds = function () {
     var xx = '0' + (i + 1);
     var title = 'Обьявление№ ' + (i + 1);
     var price = getRandomInt(10000, 50000);
-    var IntForTypes = getRandomInt(0, types.length - 1);
-    var type = types[IntForTypes];
+    var type = generateElement(types);
     var rooms = getRandomInt(1, 3);
     var guests = getRandomInt(1, 2);
-    var IntForCheckin = getRandomInt(0, checkinArr.length - 1);
-    var IntForFeatures = getRandomInt(0, features.length - 1);
-    var feature = features.slice(0, IntForFeatures);
+    var checkin = generateElement(checkinArr);
+    var feature = generateElement(features);
+    var photo = generateElement(photos);
     var description = title + '. ' + 'Стоимость ' + price + ' RUB';
     // var IntForPhotos = getRandomInt(0, 2);
     var x = getRandomInt(0, mapPins.clientWidth);
     var y = getRandomInt(0, mapPins.clientHeight - 100);
-    var ad = createAd(xx, title, price, type, rooms, guests, checkinArr[IntForCheckin], feature, description, photos[1], x, y + 100);
+    var ad = createAd(xx, title, price, type, rooms, guests, checkin, feature, description, photo, x, y + 100);
     arrAds.push(ad);
   }
   return arrAds;
