@@ -96,15 +96,35 @@ var createPins = function (ads) {
   }
 };
 
-var createCards = function (ads) {
+var renderCards = function (ads) {
   var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
+  var setValueOfElement = function (selector, value) {
+    var element = card.querySelector(selector);
+    if (selector === '.popup__type') {
+      if (value === 'flat') {
+        value = 'Квартира';
+      } else if (value === 'bungalo') {
+        value = 'Бунгало';
+      } else if (value === 'house') {
+        value = 'Дом';
+      } else if (value === 'palace') {
+        value = 'Дворец';
+      } element.textContent = value;
+    } else {
+      element.textContent = value;
+    }
+  };
+
+
   for (var i = 0; i < 1; i++) {
-    var ad = ads[i];
     var card = cardTemplate.cloneNode(true);
-    var title = card.querySelector('.popup__title');
-    title.textContent = ad.offer.title;
-    console.log(title.textContent);
+    var ad = ads[i];
+    setValueOfElement('.popup__title', ad.offer.title);
+    setValueOfElement('.popup__text--address', ad.offer.address);
+    setValueOfElement('.popup__text--price', ad.offer.price + '₽/день');
+    setValueOfElement('.popup__type', ad.offer.type);
+    console.log(card);
   }
 };
 
@@ -113,4 +133,4 @@ map.classList.remove('map--faded');
 var ads = createArrAds();
 createPins(ads);
 
-createCards(ads);
+renderCards(ads);
