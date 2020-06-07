@@ -113,21 +113,26 @@ var setValueOfElement = function (card, selector, value) {
   }
 };
 
-var setPhotos = function (card, selector, value) {
-  var element = card.querySelector(selector).querySelector('img');
-  console.log(element);
-  // for (var i = 0; i < value.length; i++) {
+// var setPhotos = function (card, selector, value) {
+//   var element = card.querySelector(selector);
+//   var childElement = element.querySelector('img');
+//   childElement.element.remove();
+//   console.log(element);
+//   for (var i = 0; i < value.length; i++) {
+//   element.add(childElement);
 
-  // }
-};
+//   }
+// };
 
-var renderCards = function (ads) {
+var renderCards = function (ads, map) {
   var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
+  var cardsArr = [];
 
-  for (var i = 0; i < 1; i++) {
+  for (var i = 0; i < ads.length; i++) {
     var card = cardTemplate.cloneNode(true);
     var ad = ads[i];
-    setPhotos(card, '.popup__photos', ad.offer.photos);
+    // setPhotos(card, '.popup__photos', ad.offer.photos);
+    // setFeatures();
     setValueOfElement(card, '.popup__title', ad.offer.title);
     setValueOfElement(card, '.popup__text--address', ad.offer.address);
     setValueOfElement(card, '.popup__text--price', ad.offer.price + '₽/день');
@@ -136,14 +141,18 @@ var renderCards = function (ads) {
     setValueOfElement(card, '.popup__text--capacity', capacity);
     var time = 'Заезд после ' + ad.offer.checkin + ', выезд до ' + ad.offer.checkout;
     setValueOfElement(card, '.popup__text--time', time);
-    setValueOfElement(card, '.popup__features', ad.offer.features);
     setValueOfElement(card, '.popup__description', ad.offer.description);
     console.log(card);
+    cardsArr.push(card);
   }
+
+  console.log(cardsArr);
+  var mapFilters = map.querySelector('.map__filters-container');
+  mapFilters.insertAdjacentHTML('beforeBegin', cardsArr);
 };
 
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
 var ads = createArrAds();
 createPins(ads);
-renderCards(ads);
+renderCards(ads, map);
