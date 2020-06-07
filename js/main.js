@@ -96,8 +96,21 @@ var createPins = function (ads) {
   }
 };
 
+var createCards = function (ads) {
+  var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
+
+  for (var i = 0; i < 1; i++) {
+    var ad = ads[i];
+    var card = cardTemplate.cloneNode(true);
+    var title = card.querySelector('.popup__title');
+    title.textContent = ad.offer.title;
+    console.log(title.textContent);
+  }
+};
 
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
 var ads = createArrAds();
 createPins(ads);
+
+createCards(ads);
