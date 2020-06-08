@@ -47,7 +47,7 @@ var createAd = function (xx, title, price, type, rooms, guests, checkin, feature
 var AVAILABLE_TIMES = ['12:00', '13:00', '14:00'];
 var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
-var types = ['palace', 'flat', 'house', 'bungalo'];
+var HOUSING_TYPES = ['palace', 'flat', 'house', 'bungalo'];
 
 var createAds = function () {
   var arrAds = [];
@@ -55,7 +55,7 @@ var createAds = function () {
     var xx = '0' + (i + 1);
     var title = 'Обьявление№ ' + (i + 1);
     var price = getRandomInt(10000, 50000);
-    var type = getRandomElement(types);
+    var type = getRandomElement(HOUSING_TYPES);
     var rooms = getRandomInt(1, 3);
     var guests = getRandomInt(1, 2);
     var checkin = getRandomElement(AVAILABLE_TIMES);
@@ -79,6 +79,9 @@ var changeAttribute = function (element, attribute, value) {
 
 var createPins = function (ads) {
   var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+
+  var pin = pinTemplate.cloneNode(true);
+  var fragment = document.createDocumentFragment();
 
   for (var i = 0; i < ads.length; i++) {
     var pin = pinTemplate.cloneNode(true);
