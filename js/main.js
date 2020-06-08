@@ -1,5 +1,8 @@
 'use strict';
 
+var MAP_PIN_Y_MIN = 130;
+var MAP_PIN_Y_MAX = 630;
+
 // сразу скажу, что вынес эту переменную в глобальную область, т.к. использую ее в 2-ух функциях
 var mapPins = document.querySelector('.map__pins');
 
@@ -41,12 +44,12 @@ var createAd = function (xx, title, price, type, rooms, guests, checkin, feature
   return ad;
 };
 
-var checkinArr = ['12:00', '13:00', '14:00'];
-var features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-var photos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+var AVAILABLE_TIMES = ['12:00', '13:00', '14:00'];
+var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 var types = ['palace', 'flat', 'house', 'bungalo'];
 
-var createArrAds = function () {
+var createAds = function () {
   var arrAds = [];
   for (var i = 0; i < 8; i++) {
     var xx = '0' + (i + 1);
@@ -55,14 +58,15 @@ var createArrAds = function () {
     var type = getRandomElement(types);
     var rooms = getRandomInt(1, 3);
     var guests = getRandomInt(1, 2);
-    var checkin = getRandomElement(checkinArr);
-    var feature = getRandomElement(features);
-    var photo = getRandomElement(photos);
+    var checkin = getRandomElement(AVAILABLE_TIMES);
+    var feature = getRandomElement(FEATURES);
+    var photo = getRandomElement(PHOTOS);
     var description = title + '. ' + 'Стоимость ' + price + ' RUB';
     var x = getRandomInt(0, mapPins.clientWidth);
-    var y = getRandomInt(0, mapPins.clientHeight - 100);
+    var y = getRandomInt(MAP_PIN_Y_MIN, MAP_PIN_Y_MAX);
+    console.log(y);
 
-    var ad = createAd(xx, title, price, type, rooms, guests, checkin, feature, description, photo, x, y + 100);
+    var ad = createAd(xx, title, price, type, rooms, guests, checkin, feature, description, photo, x, y);
     arrAds.push(ad);
   }
   return arrAds;
@@ -83,6 +87,7 @@ var createPins = function (ads) {
     var left = ads[i].location.x - (pin.clientWidth / 2);
     var topPin = ads[i].location.y - pin.clientHeight;
     var style = 'left: ' + left + 'px; top: ' + topPin + 'px';
+    console.log(style);
     changeAttribute(pin, 'style', style);
 
     var avatar = pin.querySelector('img');
@@ -99,5 +104,5 @@ var createPins = function (ads) {
 
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
-var ads = createArrAds();
+var ads = createAds();
 createPins(ads);
