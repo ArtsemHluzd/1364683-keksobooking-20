@@ -15,7 +15,16 @@ var getRandomElement = function (arr) {
   return arr[random];
 };
 
-var createAd = function (xx, title, price, type, rooms, guests, checkin, features, description, photos, x, y) {
+var getRandomArr = function (arr) {
+  var randomArr = [];
+  var randomInt = getRandomInt(0, arr.length - 1);
+  for (var i = 0; i < randomInt; i++) {
+    randomArr.push(arr[i]);
+  }
+  return randomArr;
+};
+
+var createAd = function (xx, title, price, type, rooms, guests, checkin, feature, description, photos, x, y) {
   var ad =
   {
     author:
@@ -32,7 +41,7 @@ var createAd = function (xx, title, price, type, rooms, guests, checkin, feature
       guests: guests,
       checkin: checkin,
       checkout: checkin,
-      features: features,
+      features: feature,
       description: description,
       photos: photos
     },
@@ -59,8 +68,9 @@ var createAds = function () {
     var rooms = getRandomInt(1, 3);
     var guests = getRandomInt(1, 2);
     var checkin = getRandomElement(AVAILABLE_TIMES);
-    var feature = getRandomElement(FEATURES);
-    var photo = getRandomElement(PHOTOS);
+    var feature = getRandomArr(FEATURES);
+    var photo = getRandomArr(PHOTOS);
+    console.log(FEATURES, PHOTOS);
     var description = title + '. ' + 'Стоимость ' + price + ' RUB';
     var x = getRandomInt(0, mapPins.clientWidth);
     var y = getRandomInt(MAP_PIN_Y_MIN, MAP_PIN_Y_MAX);
@@ -80,9 +90,6 @@ var changeAttribute = function (element, attribute, value) {
 var createPins = function (ads) {
   var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
-  var pin = pinTemplate.cloneNode(true);
-  var fragment = document.createDocumentFragment();
-
   for (var i = 0; i < ads.length; i++) {
     var pin = pinTemplate.cloneNode(true);
     var fragment = document.createDocumentFragment();
@@ -90,7 +97,6 @@ var createPins = function (ads) {
     var left = ads[i].location.x - (pin.clientWidth / 2);
     var topPin = ads[i].location.y - pin.clientHeight;
     var style = 'left: ' + left + 'px; top: ' + topPin + 'px';
-    console.log(style);
     changeAttribute(pin, 'style', style);
 
     var avatar = pin.querySelector('img');
