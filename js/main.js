@@ -77,7 +77,7 @@ var createAds = function () {
     var photo = getRandomArr(PHOTOS);
 
     var description = title + '. ' + 'Стоимость ' + price + ' RUB';
-    var x = getRandomInt(0, MAP_WIDTH);
+    var x = getRandomInt(MAP_PIN_WIDTH, MAP_WIDTH - MAP_PIN_WIDTH);
     var y = getRandomInt(MAP_Y_MIN, MAP_Y_MAX);
 
     var ad = createAd(xx, title, price, type, rooms, guests, checkin, feature, description, photo, x, y);
