@@ -1,10 +1,10 @@
 'use strict';
+
 var MAP_PIN_WIDTH_HEIGHT = 40;
 var MAP_WIDTH = 1200;
 var MAP_Y_MIN = 130;
 var MAP_Y_MAX = 630;
 
-// сразу скажу, что вынес эту переменную в глобальную область, т.к. использую ее в 2-ух функциях
 var mapPins = document.querySelector('.map__pins');
 
 var getRandomInt = function (min, max) {
