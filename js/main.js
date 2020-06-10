@@ -1,6 +1,8 @@
 'use strict';
 
-var MAP_PIN_WIDTH_HEIGHT = 40;
+var MAP_PIN_WIDTH = 50;
+var MAP_PIN_HEIGHT = 70;
+
 var MAP_WIDTH = 1200;
 var MAP_Y_MIN = 130;
 var MAP_Y_MAX = 630;
@@ -8,7 +10,9 @@ var MAP_Y_MAX = 630;
 var mapPins = document.querySelector('.map__pins');
 
 var getRandomInt = function (min, max) {
-  return Math.round(Math.random() * (max - min) + 1);
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 var getRandomElement = function (arr) {
@@ -94,8 +98,8 @@ var createPins = function (ads) {
     var pin = pinTemplate.cloneNode(true);
     var fragment = document.createDocumentFragment();
 
-    var left = ads[i].location.x - (MAP_PIN_WIDTH_HEIGHT / 2);
-    var topPin = ads[i].location.y - MAP_PIN_WIDTH_HEIGHT;
+    var left = ads[i].location.x - (MAP_PIN_WIDTH / 2);
+    var topPin = ads[i].location.y - MAP_PIN_HEIGHT;
     var style = 'left: ' + left + 'px; top: ' + topPin + 'px';
     changeAttribute(pin, 'style', style);
 
