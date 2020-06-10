@@ -114,5 +114,4 @@ var createPins = function (ads) {
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
 var ads = createAds();
-console.log(ads);
 createPins(ads);
