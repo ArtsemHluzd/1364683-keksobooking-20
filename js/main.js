@@ -144,23 +144,18 @@ var fieldsets = document.querySelectorAll('fieldset');
 var mapFilters = document.querySelector('.map__filters');
 var addressInput =  document.querySelector('#address');
 
-var test = function () {
-  var styleValue = mainPin.getAttribute('style');
-  console.log(styleValue);
-  var left = styleValue.substr(6, 8);
-  var top = styleValue.substr(18, 20);
-  console.log(top);
-  var addressValue = left + top;
-  console.log(addressValue);
+var insertAddressValueInitial = function () {
+  var left = mainPin.getBoundingClientRect().left - map.getBoundingClientRect().left + (MAP_PIN_MAIN / 2);
+  var top = mainPin.getBoundingClientRect().top + pageYOffset + (MAP_PIN_MAIN / 2);
+  var addressValue = Math.round(left) + ' , ' + Math.round(top);
+  addressInput.value = addressValue;
 };
-
-test();
 
 
 var ads = createAds();
 createPins(ads);
 diactivateForm(); 
-addressInput.value = mainPin.getAttribute('style');
+insertAddressValueInitial();
 
 
 mainPin.addEventListener('mousedown', function () {
