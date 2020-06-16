@@ -96,7 +96,7 @@ var createPins = function (ads) {
 
   for (var i = 0; i < ads.length; i++) {
     var pin = pinTemplate.cloneNode(true);
-    var fragment = document.createDocumentFragment();
+
 
     var left = ads[i].location.x - (MAP_PIN_WIDTH / 2);
     var topPin = ads[i].location.y - MAP_PIN_HEIGHT;
@@ -110,26 +110,50 @@ var createPins = function (ads) {
     changeAttribute(avatar, 'alt', alt);
 
     fragment.appendChild(pin);
-    mapPins.appendChild(fragment);
   }
 };
 
 
 var map = document.querySelector('.map');
+var fragment = document.createDocumentFragment();
 var form = document.querySelector('.ad-form');
 var mainPin = document.querySelector('.map__pin--main');
 var fieldsets = document.querySelectorAll('fieldset');
 var mapFilters = document.querySelector('.map__filters');
+var addressInput =  document.querySelector('#address');
+
+addressInput.value = mainPin.getAttribute('style');
 
 var ads = createAds();
 createPins(ads);
-mainPin.addEventListener('mousedown', activatePage);
 
-var activatePage = function () {
+mainPin.addEventListener('mousedown', function () {
+  activatePage();
+});
+
+mainPin.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Enter') {
+    activatePage();
+  }
+});
+
+var diactivateForm = function () {
+  for (var i = 0; i < fieldsets.length; i++) {
+    fieldsets[i].classList.add('disabled');
+  }
+};
+
+diactivateForm();
+
+var activatePage = function (evt) {
+  if (evt.button === 0) {
+  mapPins.appendChild(fragment);
+
   map.classList.remove('map--faded');
   form.classList.remove('ad-form--disabled');
   for (var i = 0; i < fieldsets.length; i++) {
     fieldsets[i].classList.remove('disabled');
   }
   mapFilters.remove('ad-filters--disables');
+  }
 };
