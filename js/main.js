@@ -2,6 +2,8 @@
 
 var MAP_PIN_WIDTH = 50;
 var MAP_PIN_HEIGHT = 70;
+var MAP_PIN_MAIN = 65;
+
 
 var MAP_WIDTH = 1200;
 var MAP_Y_MIN = 130;
@@ -119,9 +121,19 @@ var diactivateForm = function () {
   }
 };
 
-var insertAddressValue = function () {
-  addressInput.value = mainPin.getAttribute('style');
-};
+// var insertAddressValue = function () {
+//   mainPin.addEventListener('mousemove', function () {
+//     var styleValue = mainPin.getAttribute('style');
+//     var left = styleValue.substr(6, 8);
+//     var top = styleValue.substr(18, 20);
+//     var addressValue = left + top;
+//     console.log(addressValue);
+//     addressInput.value = addressValue;
+//   });
+// };
+
+// insertAddressValue();
+
 
 
 var map = document.querySelector('.map');
@@ -131,6 +143,19 @@ var mainPin = document.querySelector('.map__pin--main');
 var fieldsets = document.querySelectorAll('fieldset');
 var mapFilters = document.querySelector('.map__filters');
 var addressInput =  document.querySelector('#address');
+
+var test = function () {
+  var styleValue = mainPin.getAttribute('style');
+  console.log(styleValue);
+  var left = styleValue.substr(6, 8);
+  var top = styleValue.substr(18, 20);
+  console.log(top);
+  var addressValue = left + top;
+  console.log(addressValue);
+};
+
+test();
+
 
 var ads = createAds();
 createPins(ads);
