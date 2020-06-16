@@ -116,6 +116,20 @@ var createPins = function (ads) {
 
 
 var map = document.querySelector('.map');
-map.classList.remove('map--faded');
+var form = document.querySelector('.ad-form');
+var mainPin = document.querySelector('.map__pin--main');
+var fieldsets = document.querySelectorAll('fieldset');
+var mapFilters = document.querySelector('.map__filters');
+
 var ads = createAds();
 createPins(ads);
+mainPin.addEventListener('mousedown', activatePage);
+
+var activatePage = function () {
+  map.classList.remove('map--faded');
+  form.classList.remove('ad-form--disabled');
+  for (var i = 0; i < fieldsets.length; i++) {
+    fieldsets[i].classList.remove('disabled');
+  }
+  mapFilters.remove('ad-filters--disables');
+};
