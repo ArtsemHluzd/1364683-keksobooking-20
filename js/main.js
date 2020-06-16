@@ -10,6 +10,14 @@ var MAP_Y_MIN = 130;
 var MAP_Y_MAX = 630;
 
 var mapPins = document.querySelector('.map__pins');
+var map = document.querySelector('.map');
+var fragment = document.createDocumentFragment();
+var form = document.querySelector('.ad-form');
+var mainPin = document.querySelector('.map__pin--main');
+var fieldsets = document.querySelectorAll('fieldset');
+var mapFilters = document.querySelector('.map__filters');
+var addressInput =  document.querySelector('#address');
+
 
 var getRandomInt = function (min, max) {
   min = Math.ceil(min);
@@ -121,28 +129,14 @@ var diactivateForm = function () {
   }
 };
 
-// var insertAddressValue = function () {
-//   mainPin.addEventListener('mousemove', function () {
-//     var styleValue = mainPin.getAttribute('style');
-//     var left = styleValue.substr(6, 8);
-//     var top = styleValue.substr(18, 20);
-//     var addressValue = left + top;
-//     console.log(addressValue);
-//     addressInput.value = addressValue;
-//   });
-// };
-
-// insertAddressValue();
-
-
-
-var map = document.querySelector('.map');
-var fragment = document.createDocumentFragment();
-var form = document.querySelector('.ad-form');
-var mainPin = document.querySelector('.map__pin--main');
-var fieldsets = document.querySelectorAll('fieldset');
-var mapFilters = document.querySelector('.map__filters');
-var addressInput =  document.querySelector('#address');
+var insertAddressValue = function () {
+  mainPin.addEventListener('mousemove', function () {
+    var left = mainPin.getBoundingClientRect().left - map.getBoundingClientRect().left - (MAP_PIN_WIDTH / 2);
+    var top = mainPin.getBoundingClientRect().top - MAP_PIN_HEIGHT + pageYOffset;
+    var addressValue = Math.round(left) + ' , ' + Math.round(top);
+    addressInput.value = addressValue;
+  });
+};
 
 var insertAddressValueInitial = function () {
   var left = mainPin.getBoundingClientRect().left - map.getBoundingClientRect().left + (MAP_PIN_MAIN / 2);
@@ -158,20 +152,20 @@ diactivateForm();
 insertAddressValueInitial();
 
 
-mainPin.addEventListener('mousedown', function () {
-  activatePage();
+mainPin.addEventListener('mousedown', function (evt) {
+  activatePage(evt);
   insertAddressValue();
 });
 
 mainPin.addEventListener('keydown', function (evt) {
   if (evt.key === 'Enter') {
     activatePage();
-    addressInput.value = mainPin.getAttribute('style');
+    insertAddressValue();
   }
 });
 
 var activatePage = function (evt) {
-  if (evt.button === 0) {
+  if (evt.which  === 1) {
   mapPins.appendChild(fragment);
 
   map.classList.remove('map--faded');
