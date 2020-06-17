@@ -17,6 +17,8 @@ var mainPin = document.querySelector('.map__pin--main');
 var fieldsets = document.querySelectorAll('fieldset');
 var mapFilters = document.querySelector('.map__filters');
 var addressInput =  document.querySelector('#address');
+var housingRoomsSelect = document.querySelector('#housing-rooms');
+var housingGuestsSelect = document.querySelector('#housing-guests');  
 
 
 var getRandomInt = function (min, max) {
@@ -176,3 +178,17 @@ var activatePage = function (evt) {
   mapFilters.remove('ad-filters--disables');
   }
 };
+
+
+form.addEventListener('change', function () {
+ if (housingRoomsSelect.value === 1 && housingGuestsSelect !== 1) {
+  housingRoomsSelect.setCustomValidity('Вы можете выбрать для 1 гостя');
+ } else if (housingRoomsSelect.value === 2 && housingGuestsSelect !== 1 && housingGuestsSelect !== 2) {
+  housingRoomsSelect.setCustomValidity('Вы можете выбрать для 1 гостя или для 2 гостей');
+ } else if (housingRoomsSelect.value === 3 && housingGuestsSelect !== 1 && housingGuestsSelect !== 2 && housingGuestsSelect !== 3) {
+  housingRoomsSelect.setCustomValidity('Вы можете выбрать для 1 гостя, для 2 или 3 гостей');
+ } else {
+  housingRoomsSelect.setCustomValidity('Вы можете выбрать только нет гостей');
+ }
+});
+
