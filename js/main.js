@@ -125,9 +125,23 @@ var createPins = function (ads) {
   }
 };
 
-var diactivateForm = function () {
+var diactivateForm = function (fieldsets) {
   for (var i = 0; i < fieldsets.length; i++) {
     fieldsets[i].classList.add('disabled');
+  }
+
+};
+
+var activatePage = function (evt) {
+  if (evt.which  === 1) {
+    mapPins.appendChild(fragment);
+
+    map.classList.remove('map--faded');
+    form.classList.remove('ad-form--disabled');
+    for (var i = 0; i < fieldsets.length; i++) {
+      fieldsets[i].classList.remove('disabled');
+    }
+    mapFilters.remove('ad-filters--disables');
   }
 };
 
@@ -153,7 +167,7 @@ var insertAddressValueInitial = function () {
 
 var ads = createAds();
 createPins(ads);
-diactivateForm(); 
+diactivateForm(fieldsets); 
 insertAddressValueInitial();
 
 
@@ -169,29 +183,20 @@ mainPin.addEventListener('keydown', function (evt) {
   }
 });
 
-var activatePage = function (evt) {
-  if (evt.which  === 1) {
-  mapPins.appendChild(fragment);
 
-  map.classList.remove('map--faded');
-  form.classList.remove('ad-form--disabled');
-  for (var i = 0; i < fieldsets.length; i++) {
-    fieldsets[i].classList.remove('disabled');
-  }
-  mapFilters.remove('ad-filters--disables');
-  }
-};
+form.addEventListener('submit', function () {
 
+  var selectRooms = housingRoomsSelect.value;
+  var selectGuests = housingGuestsSelect.value;
 
-form.addEventListener('change', function () {
- if (housingRoomsSelect.value === 1 && housingGuestsSelect !== 1) {
-  housingRoomsSelect.setCustomValidity('Вы можете выбрать для 1 гостя');
- } else if (housingRoomsSelect.value === 2 && housingGuestsSelect !== 1 && housingGuestsSelect !== 2) {
-  housingRoomsSelect.setCustomValidity('Вы можете выбрать для 1 гостя или для 2 гостей');
- } else if (housingRoomsSelect.value === 3 && housingGuestsSelect !== 1 && housingGuestsSelect !== 2 && housingGuestsSelect !== 3) {
-  housingRoomsSelect.setCustomValidity('Вы можете выбрать для 1 гостя, для 2 или 3 гостей');
+ if (selectRooms === 1 && selectGuests !== 1) {
+  selectRooms.setCustomValidity('Вы можете выбрать для 1 гостя');
+ } else if (selectRooms === 2 && selectGuests !== 1 && selectGuests !== 2) {
+  selectRooms.setCustomValidity('Вы можете выбрать для 1 гостя или для 2 гостей');
+ } else if (selectRooms === 3 && selectGuests !== 1 && selectGuests !== 2 && selectGuests !== 3) {
+  selectRooms.setCustomValidity('Вы можете выбрать для 1 гостя, для 2 или 3 гостей');
  } else {
-  housingRoomsSelect.setCustomValidity('Вы можете выбрать только нет гостей');
+  selectRooms.setCustomValidity('Вы можете выбрать только нет гостей');
  }
 });
 
