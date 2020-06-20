@@ -16,9 +16,9 @@ var form = document.querySelector('.ad-form');
 var mainPin = document.querySelector('.map__pin--main');
 var fieldsets = document.querySelectorAll('fieldset');
 var mapFilters = document.querySelector('.map__filters');
-var addressInput =  document.querySelector('#address');
+var addressInput = document.querySelector('#address');
 var housingRoomsSelect = document.querySelector('#housing-rooms');
-var housingGuestsSelect = document.querySelector('#housing-guests');  
+var housingGuestsSelect = document.querySelector('#housing-guests');
 
 
 var getRandomInt = function (min, max) {
@@ -125,15 +125,15 @@ var createPins = function (ads) {
   }
 };
 
-var diactivateForm = function (fieldsets) {
-  for (var i = 0; i < fieldsets.length; i++) {
-    fieldsets[i].classList.add('disabled');
+var diactivateForm = function (formFiealdsets) {
+  for (var i = 0; i < formFiealdsets.length; i++) {
+    formFiealdsets[i].classList.add('disabled');
   }
 
 };
 
 var activatePage = function (evt) {
-  if (evt.which  === 1) {
+  if (evt.which === 1) {
     mapPins.appendChild(fragment);
 
     map.classList.remove('map--faded');
@@ -167,7 +167,7 @@ var insertAddressValueInitial = function () {
 
 var ads = createAds();
 createPins(ads);
-diactivateForm(fieldsets); 
+diactivateForm(fieldsets);
 insertAddressValueInitial();
 
 
