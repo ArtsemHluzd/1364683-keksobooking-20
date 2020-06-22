@@ -2,12 +2,24 @@
 
 var MAP_PIN_WIDTH = 50;
 var MAP_PIN_HEIGHT = 70;
+var MAP_PIN_MAIN = 65;
+
 
 var MAP_WIDTH = 1200;
 var MAP_Y_MIN = 130;
 var MAP_Y_MAX = 630;
 
 var mapPins = document.querySelector('.map__pins');
+var map = document.querySelector('.map');
+var fragment = document.createDocumentFragment();
+var form = document.querySelector('.ad-form');
+var mainPin = document.querySelector('.map__pin--main');
+var fieldsets = document.querySelectorAll('fieldset');
+var mapFilters = document.querySelector('.map__filters');
+var addressInput = document.querySelector('#address');
+var housingRoomsSelect = document.querySelector('#housing-rooms');
+var housingGuestsSelect = document.querySelector('#housing-guests');
+
 
 var getRandomInt = function (min, max) {
   min = Math.ceil(min);
@@ -96,7 +108,7 @@ var createPins = function (ads) {
 
   for (var i = 0; i < ads.length; i++) {
     var pin = pinTemplate.cloneNode(true);
-    var fragment = document.createDocumentFragment();
+
 
     var left = ads[i].location.x - (MAP_PIN_WIDTH / 2);
     var topPin = ads[i].location.y - MAP_PIN_HEIGHT;
@@ -110,12 +122,80 @@ var createPins = function (ads) {
     changeAttribute(avatar, 'alt', alt);
 
     fragment.appendChild(pin);
-    mapPins.appendChild(fragment);
   }
 };
 
+var diactivateForm = function (formFiealdsets) {
+  for (var i = 0; i < formFiealdsets.length; i++) {
+    formFiealdsets[i].classList.add('disabled');
+  }
 
-var map = document.querySelector('.map');
-map.classList.remove('map--faded');
+};
+
+var activatePage = function (evt) {
+  if (evt.which === 1) {
+    mapPins.appendChild(fragment);
+
+    map.classList.remove('map--faded');
+    form.classList.remove('ad-form--disabled');
+    for (var i = 0; i < fieldsets.length; i++) {
+      fieldsets[i].classList.remove('disabled');
+    }
+    mapFilters.remove('ad-filters--disables');
+  }
+};
+
+var insertAddressValue = function () {
+  mainPin.addEventListener('mousemove', function () {
+    var boundPin = mainPin.getBoundingClientRect();
+    var boundMap = map.getBoundingClientRect();
+    var left = boundPin.left - boundMap.left - (MAP_PIN_WIDTH / 2);
+    var top = boundPin.top - MAP_PIN_HEIGHT + pageYOffset;
+    var addressValue = Math.round(left) + ' , ' + Math.round(top);
+    addressInput.value = addressValue;
+  });
+};
+
+var insertAddressValueInitial = function () {
+  var left = mainPin.getBoundingClientRect().left - map.getBoundingClientRect().left + (MAP_PIN_MAIN / 2);
+  var top = mainPin.getBoundingClientRect().top + pageYOffset + (MAP_PIN_MAIN / 2);
+  var addressValue = Math.round(left) + ' , ' + Math.round(top);
+  addressInput.value = addressValue;
+};
+
+
 var ads = createAds();
 createPins(ads);
+diactivateForm(fieldsets);
+insertAddressValueInitial();
+
+
+mainPin.addEventListener('mousedown', function (evt) {
+  activatePage(evt);
+  insertAddressValue();
+});
+
+mainPin.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Enter') {
+    activatePage();
+    insertAddressValue();
+  }
+});
+
+form.addEventListener('submit', function () {
+
+  var selectRooms = housingRoomsSelect.value;
+  var selectGuests = housingGuestsSelect.value;
+
+  if (selectRooms === 1 && selectGuests !== 1) {
+    selectRooms.setCustomValidity('Вы можете выбрать для 1 гостя');
+  } else if (selectRooms === 2 && selectGuests !== 1 && selectGuests !== 2) {
+    selectRooms.setCustomValidity('Вы можете выбрать для 1 гостя или для 2 гостей');
+  } else if (selectRooms === 3 && selectGuests !== 1 && selectGuests !== 2 && selectGuests !== 3) {
+    selectRooms.setCustomValidity('Вы можете выбрать для 1 гостя, для 2 или 3 гостей');
+  } else {
+    selectRooms.setCustomValidity('Вы можете выбрать только нет гостей');
+  }
+
+});
+
