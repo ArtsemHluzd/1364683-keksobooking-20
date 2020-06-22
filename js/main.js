@@ -182,20 +182,20 @@ mainPin.addEventListener('keydown', function (evt) {
   }
 });
 
-
 form.addEventListener('submit', function () {
 
   var selectRooms = housingRoomsSelect.value;
   var selectGuests = housingGuestsSelect.value;
 
- if (selectRooms === 1 && selectGuests !== 1) {
-  selectRooms.setCustomValidity('Вы можете выбрать для 1 гостя');
- } else if (selectRooms === 2 && selectGuests !== 1 && selectGuests !== 2) {
-  selectRooms.setCustomValidity('Вы можете выбрать для 1 гостя или для 2 гостей');
- } else if (selectRooms === 3 && selectGuests !== 1 && selectGuests !== 2 && selectGuests !== 3) {
-  selectRooms.setCustomValidity('Вы можете выбрать для 1 гостя, для 2 или 3 гостей');
- } else {
-  selectRooms.setCustomValidity('Вы можете выбрать только нет гостей');
- }
+  if (selectRooms === 1 && selectGuests !== 1) {
+    selectRooms.setCustomValidity('Вы можете выбрать для 1 гостя');
+  } else if (selectRooms === 2 && selectGuests !== 1 && selectGuests !== 2) {
+    selectRooms.setCustomValidity('Вы можете выбрать для 1 гостя или для 2 гостей');
+  } else if (selectRooms === 3 && selectGuests !== 1 && selectGuests !== 2 && selectGuests !== 3) {
+    selectRooms.setCustomValidity('Вы можете выбрать для 1 гостя, для 2 или 3 гостей');
+  } else {
+    selectRooms.setCustomValidity('Вы можете выбрать только нет гостей');
+  }
+
 });
 
