@@ -147,11 +147,10 @@ var activatePage = function (evt) {
 
 var insertAddressValue = function () {
   mainPin.addEventListener('mousemove', function () {
-    var boundPin = mainPin.getBoundingClientRect().left;
-    var boundMap = map.getBoundingClientRect().left;
-    var boundPinTop = mainPin.getBoundingClientRect().top;
-    var left = boundPin - boundMap - (MAP_PIN_WIDTH / 2);
-    var top = boundPinTop - MAP_PIN_HEIGHT + pageYOffset;
+    var boundPin = mainPin.getBoundingClientRect();
+    var boundMap = map.getBoundingClientRect();
+    var left = boundPin.left - boundMap.left - (MAP_PIN_WIDTH / 2);
+    var top = boundPin.top - MAP_PIN_HEIGHT + pageYOffset;
     var addressValue = Math.round(left) + ' , ' + Math.round(top);
     addressInput.value = addressValue;
   });
