@@ -75,11 +75,10 @@
   };
 
   var onError = function () {
-    alert('Что-то пошло не так');
   };
 
-  var onSuccessLoad = function () {
-    alert('Данные загрузились');
+  var onSuccessLoad = function (ads) {
+    window.pin.createPins(ads);
   };
 
   form.addEventListener('submit', function (evt) {

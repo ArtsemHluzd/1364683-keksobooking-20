@@ -10,9 +10,8 @@ var URL_TO = 'https://javascript.pages.academy/keksobooking';
     xhr.responseType = 'json';
 
     xhr.addEventListener('load', function () {
-      console.log(xhr.status);
       if (xhr.status === 200) {
-        onSuccess(xhr.responce);
+        onSuccess(xhr.response);
       } else {
         onError('Что-то пошло не так');
       }
@@ -30,7 +29,7 @@ var URL_TO = 'https://javascript.pages.academy/keksobooking';
 
     xhr.addEventListener('load', function () {
       if (xhr.status === 200) {
-        onSuccess(xhr.response);
+        onSuccess(xhr);
       } else {
         onError('Что-то пошло не так');
       }
