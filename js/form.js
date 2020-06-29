@@ -12,6 +12,8 @@
   var mapFilters = document.querySelector('.map__filters');
   var fieldsets = document.querySelectorAll('fieldset');
   var map = document.querySelector('.map');
+  var notice = document.querySelector('.notice');
+  var noticeTitle = document.querySelector('.notice__title');
 
   form.addEventListener('submit', function () {
 
@@ -75,7 +77,12 @@
   };
 
   var onError = function () {
-    alert('что-то пошло не так');
+    var errorDiv = document.createElement('div');
+    errorDiv.innerHTML = 'Что-то пошло не так';
+    errorDiv.style.color = 'red';
+    errorDiv.style.fontSize = '30px';
+    errorDiv.align = 'center';
+    notice.insertBefore(errorDiv, noticeTitle);
   };
 
   var onSuccessLoad = function (ads) {
