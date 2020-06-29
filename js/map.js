@@ -2,8 +2,6 @@
 
 (function () {
 
-  var ads = window.card.createAds();
-  window.pin.createPins(ads);
   window.form.diactivateForm();
   window.form.insertAddressValueInitial();
 
