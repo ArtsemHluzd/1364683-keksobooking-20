@@ -2,6 +2,8 @@
 
 (function () {
 
+  var MAP_PIN_WIDTH = 50;
+  var MAP_PIN_HEIGHT = 70;
   var fragment = document.createDocumentFragment();
 
   var createPins = function (ads) {
@@ -11,8 +13,8 @@
       var pin = pinTemplate.cloneNode(true);
 
 
-      var left = ads[i].location.x - (window.card.MAP_PIN_WIDTH / 2);
-      var topPin = ads[i].location.y - window.card.MAP_PIN_HEIGHT;
+      var left = ads[i].location.x - (MAP_PIN_WIDTH / 2);
+      var topPin = ads[i].location.y - MAP_PIN_HEIGHT;
       var style = 'left: ' + left + 'px; top: ' + topPin + 'px';
       window.common.changeAttribute(pin, 'style', style);
 
