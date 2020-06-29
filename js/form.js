@@ -25,7 +25,7 @@
     } else if (selectRooms === 3 && selectGuests !== 1 && selectGuests !== 2 && selectGuests !== 3) {
       selectRooms.setCustomValidity('Вы можете выбрать для 1 гостя, для 2 или 3 гостей');
     } else {
-      selectRooms.setCustomValidity('Вы можете выбрать только нет гостей');
+      selectRooms.setCustomValidity = 'Вы можете выбрать только нет гостей';
     }
   });
 
@@ -68,6 +68,26 @@
       mapFilters.remove('ad-filters--disables');
     }
   };
+
+  var onSuccessSave = function () {
+    diactivateForm();
+    insertAddressValueInitial();
+  };
+
+  var onError = function () {
+    alert('Что-то пошло не так');
+  };
+
+  var onSuccessLoad = function () {
+    alert('Данные загрузились');
+  };
+
+  form.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.backend.save(new FormData(form), onSuccessSave, onError);
+  });
+
+  window.backend.load(onSuccessLoad, onError);
 
   window.form = {
     insertAddressValue: insertAddressValue,
