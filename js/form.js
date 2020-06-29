@@ -25,7 +25,7 @@
     } else if (selectRooms === 3 && selectGuests !== 1 && selectGuests !== 2 && selectGuests !== 3) {
       selectRooms.setCustomValidity('Вы можете выбрать для 1 гостя, для 2 или 3 гостей');
     } else {
-      selectRooms.setCustomValidity = 'Вы можете выбрать только нет гостей';
+      selectRooms.setCustomValidity('Вы можете выбрать только нет гостей');
     }
   });
 
@@ -75,6 +75,7 @@
   };
 
   var onError = function () {
+    alert('что-то пошло не так');
   };
 
   var onSuccessLoad = function (ads) {
