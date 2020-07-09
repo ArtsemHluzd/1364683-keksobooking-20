@@ -11,6 +11,7 @@ var URL_TO = 'https://javascript.pages.academy/keksobooking';
 
     xhr.addEventListener('load', function () {
       if (xhr.status === 200) {
+        console.log(xhr.response);
         onSuccess(xhr.response);
       } else {
         onError('Что-то пошло не так');
