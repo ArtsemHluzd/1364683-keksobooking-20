@@ -14,6 +14,7 @@
   var map = document.querySelector('.map');
   var notice = document.querySelector('.notice');
   var noticeTitle = document.querySelector('.notice__title');
+  var ads = [];
 
   form.addEventListener('submit', function () {
 
@@ -67,7 +68,7 @@
       for (var i = 0; i < fieldsets.length; i++) {
         fieldsets[i].classList.remove('disabled');
       }
-      mapFilters.remove('ad-filters--disables');
+      // mapFilters.remove('ad-filters--disables');
     }
   };
 
@@ -85,7 +86,26 @@
     notice.insertBefore(errorDiv, noticeTitle);
   };
 
-  var onSuccessLoad = function (ads) {
+
+  var typeOfHouse;
+
+  var updateAds = function () {
+    var filteredads = ads.filter(function (item) {
+      return item.offer.type === typeOfHouse;
+    });
+    window.pin.createPins(filteredads);
+
+  };
+
+
+  var houseType = document.querySelector('#housing-type');
+  houseType.addEventListener('change', function (evt) {
+    typeOfHouse = this.value;
+    updateAds();
+  });
+
+  var onSuccessLoad = function (data) {
+    ads = data;
     window.pin.createPins(ads);
   };
 

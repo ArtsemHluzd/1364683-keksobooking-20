@@ -17,11 +17,4 @@
     }
   });
 
-  var houseType = document.querySelector('#housing-type');
-  console.log(houseType);
-  houseType.addEventListener('change', function () {
-    alert(evt);
-    console.log('test');
-  });
-
 })();
