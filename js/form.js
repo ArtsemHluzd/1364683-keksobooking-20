@@ -15,6 +15,7 @@
   var notice = document.querySelector('.notice');
   var noticeTitle = document.querySelector('.notice__title');
   var ads = [];
+  var filteredAds = [];
 
   form.addEventListener('submit', function () {
 
@@ -61,7 +62,10 @@
 
   var onSuccessLoad = function (data) {
     ads = data;
-    window.pin.createPins(ads);
+    filteredAds = ads.filter(function (elem, i) {
+      return i < 5;
+    });
+    window.pin.createPins(filteredAds);
   };
 
   var onError = function () {
@@ -101,10 +105,10 @@
       pins[0].parentNode.removeChild(pins[0]);
     }
 
-    var filteredads = ads.filter(function (item) {
+    filteredAds = ads.filter(function (item) {
       return item.offer.type === typeOfHouse;
     });
-    window.pin.createPins(filteredads);
+    window.pin.createPins(filteredAds);
 
   };
 

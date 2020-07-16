@@ -12,7 +12,7 @@
     var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
     for (var i = 0; i < ads.length; i++) {
-      if (i < 5) {
+      if (i < ADS_LENGTH) {
         var pin = pinTemplate.cloneNode(true);
 
 
