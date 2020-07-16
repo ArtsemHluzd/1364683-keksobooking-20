@@ -97,14 +97,13 @@
   var updateAds = function () {
 
     var pins = mapPins.getElementsByClassName('map__pin');
-    for (var i = pins.length; i <= 0; i--) {
-      pins[i].parentNode.removeChild(pins[i]);
+    for (var i = pins.length; i > 0; i--) {
+      pins[0].parentNode.removeChild(pins[0]);
     }
 
     var filteredads = ads.filter(function (item) {
       return item.offer.type === typeOfHouse;
     });
-    console.log(filteredads);
     window.pin.createPins(filteredads);
 
   };
