@@ -9,7 +9,7 @@
   var housingGuestsSelect = document.querySelector('#housing-guests');
   var form = document.querySelector('.ad-form');
   var mapPins = document.querySelector('.map__pins');
-  var mapFilters = document.querySelector('.map__filters');
+  // var mapFilters = document.querySelector('.map__filters');
   var fieldsets = document.querySelectorAll('fieldset');
   var map = document.querySelector('.map');
   var notice = document.querySelector('.notice');
@@ -59,22 +59,9 @@
 
   };
 
-  var activatePage = function (evt) {
-    if (evt.which === 1) {
-      mapPins.appendChild(window.pin.fragment);
-
-      map.classList.remove('map--faded');
-      window.form.form.classList.remove('ad-form--disabled');
-      for (var i = 0; i < fieldsets.length; i++) {
-        fieldsets[i].classList.remove('disabled');
-      }
-      // mapFilters.remove('ad-filters--disables');
-    }
-  };
-
-  var onSuccessSave = function () {
-    diactivateForm();
-    insertAddressValueInitial();
+  var onSuccessLoad = function (data) {
+    ads = data;
+    window.pin.createPins(ads);
   };
 
   var onError = function () {
@@ -86,13 +73,38 @@
     notice.insertBefore(errorDiv, noticeTitle);
   };
 
+  var activatePage = function (evt) {
+    if (evt.which === 1) {
+      mapPins.appendChild(window.pin.fragment);
+
+      map.classList.remove('map--faded');
+      window.form.form.classList.remove('ad-form--disabled');
+      for (var i = 0; i < fieldsets.length; i++) {
+        fieldsets[i].classList.remove('disabled');
+      }
+      window.backend.load(onSuccessLoad, onError);
+    }
+  };
+
+  var onSuccessSave = function () {
+    diactivateForm();
+    insertAddressValueInitial();
+  };
+
 
   var typeOfHouse;
 
   var updateAds = function () {
+
+    var pins = mapPins.getElementsByClassName('map__pin');
+    for (var i = pins.length; i <= 0; i--) {
+      pins[i].parentNode.removeChild(pins[i]);
+    }
+
     var filteredads = ads.filter(function (item) {
       return item.offer.type === typeOfHouse;
     });
+    console.log(filteredads);
     window.pin.createPins(filteredads);
 
   };
@@ -100,21 +112,15 @@
 
   var houseType = document.querySelector('#housing-type');
   houseType.addEventListener('change', function (evt) {
-    typeOfHouse = this.value;
+    typeOfHouse = evt.target.value;
     updateAds();
   });
-
-  var onSuccessLoad = function (data) {
-    ads = data;
-    window.pin.createPins(ads);
-  };
 
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.backend.save(new FormData(form), onSuccessSave, onError);
   });
 
-  window.backend.load(onSuccessLoad, onError);
 
   window.form = {
     insertAddressValue: insertAddressValue,

@@ -5,7 +5,8 @@
   var MAP_PIN_WIDTH = 50;
   var MAP_PIN_HEIGHT = 70;
   var fragment = document.createDocumentFragment();
-  var ADS_LENGTH =
+  var ADS_LENGTH = 5;
+  var mapPins = document.querySelector('.map__pins');
 
   var createPins = function (ads) {
     var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
@@ -27,6 +28,7 @@
 
       fragment.appendChild(pin);
     }
+    mapPins.appendChild(fragment);
   };
 
   window.pin = {
