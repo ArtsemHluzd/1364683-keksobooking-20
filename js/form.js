@@ -78,6 +78,7 @@
   };
 
   var activatePage = function (evt) {
+    console.log(evt);
     if (evt.which === 1) {
       mapPins.appendChild(window.pin.fragment);
 
