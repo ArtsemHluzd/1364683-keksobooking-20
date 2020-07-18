@@ -6,8 +6,6 @@
   var formResetButton = document.querySelector('.ad-form__reset');
   var addressInput = document.querySelector('#address');
   var mainPin = document.querySelector('.map__pin--main');
-  var housingRoomsSelect = document.querySelector('#housing-rooms');
-  var housingGuestsSelect = document.querySelector('#housing-guests');
   var form = document.querySelector('.ad-form');
   var mapPins = document.querySelector('.map__pins');
   // var mapFilters = document.querySelector('.map__filters');
@@ -18,22 +16,6 @@
   var pins = mapPins.getElementsByClassName('map__pin');
   var ads = [];
   var filteredAds = [];
-
-  form.addEventListener('submit', function () {
-
-    var selectRooms = housingRoomsSelect.value;
-    var selectGuests = housingGuestsSelect.value;
-
-    if (selectRooms === 1 && selectGuests !== 1) {
-      housingRoomsSelect.setCustomValidity('Вы можете выбрать для 1 гостя');
-    } else if (selectRooms === 2 && selectGuests !== 1 && selectGuests !== 2) {
-      housingRoomsSelect.setCustomValidity('Вы можете выбрать для 1 гостя или для 2 гостей');
-    } else if (selectRooms === 3 && selectGuests !== 1 && selectGuests !== 2 && selectGuests !== 3) {
-      housingRoomsSelect.setCustomValidity('Вы можете выбрать для 1 гостя, для 2 или 3 гостей');
-    } else {
-      housingRoomsSelect.setCustomValidity('Вы можете выбрать только нет гостей');
-    }
-  });
 
 
   var insertAddressValue = function () {
@@ -87,7 +69,7 @@
     renderAllPins();
   };
 
-  var onError = function () {
+  var onErrorLoad = function () {
     var errorDiv = document.createElement('div');
     errorDiv.innerHTML = 'Что-то пошло не так';
     errorDiv.style.color = 'red';
@@ -98,82 +80,26 @@
 
   var activatePage = function (evt) {
     if (evt.which === 1) {
-      // mapPins.appendChild(window.pin.fragment);
 
       map.classList.remove('map--faded');
       window.form.form.classList.remove('ad-form--disabled');
       for (var i = 0; i < fieldsets.length; i++) {
         fieldsets[i].classList.remove('disabled');
       }
-      window.backend.load(onSuccessLoad, onError);
+      window.backend.load(onSuccessLoad, onErrorLoad);
 
       formResetButton.addEventListener('click', emptyForm);
     }
   };
 
-
-  var renderSuccessMessage = function () {
-    var fragment = document.createDocumentFragment();
-    var successTemplate = document.querySelector('#success').content.querySelector('.success');
-    var success = successTemplate.cloneNode(true);
-    fragment.appendChild(success);
-    notice.appendChild(fragment);
-
-    var onClickRemoveSuccess = function () {
-      success.remove();
-      window.removeEventListener('click', onClickRemoveSuccess);
-      window.removeEventListener('click', onKeydownRemoveSuccess);
-    };
-
-    var onKeydownRemoveSuccess = function (evt) {
-      if (evt.key === 'Escape') {
-        success.remove();
-        window.removeEventListener('click', onKeydownRemoveSuccess);
-        window.removeEventListener('click', onClickRemoveSuccess);
-      }
-    }
-
-    window.addEventListener('click', onClickRemoveSuccess);
-    window.addEventListener('keydown', onKeydownRemoveSuccess);
-  };
-
-  var renderErrorMessage = function () {
-    var fragment = document.createDocumentFragment();
-    var errorTemaplate = document.querySelector('#error').content.querySelector('.error');
-    var error = errorTemaplate.cloneNode(true);
-    fragment.appendChild(error);
-    notice.appendChild(error);
-
-    var onClickRemoveError = function () {
-      error.remove();
-      window.removeEventListener('click', onClickRemoveError);
-      window.removeEventListener('keydown', onKeydownRemoveError);
-      errorButton.removeEventListener('click', onClickRemoveError);
-    };
-
-    var onKeydownRemoveError = function (evt) {
-      if (evt.key === 'Escape') {
-        error.remove();
-        window.removeEventListener('click', onClickRemoveError);
-        window.removeEventListener('keydown', onKeydownRemoveError);
-        errorButton.removeEventListener('click', onClickRemoveError);
-      }
-    };
-
-    var errorButton = error.querySelector('.error__button');
-    window.addEventListener('click', onClickRemoveError);
-    window.addEventListener('keydown', onKeydownRemoveError);
-    errorButton.addEventListener('click', onClickRemoveError);
-  };
-
   var onSuccessSave = function () {
     diactivateForm();
     insertAddressValueInitial();
-    renderSuccessMessage();
+    window.validation.renderSuccessMessage();
   };
 
   var onErrorSave = function () {
-    renderErrorMessage();
+    window.validation.renderErrorMessage();
   };
 
   var removeAllPins = function () {
@@ -222,7 +148,8 @@
     activatePage: activatePage,
     map: map,
     ads: ads,
-    emptyForm: emptyForm
+    emptyForm: emptyForm,
+    notice: notice
   };
 
 
