@@ -60,12 +60,17 @@
 
   };
 
-  var onSuccessLoad = function (data) {
-    ads = data;
+  var renderAllPins = function () {
     filteredAds = ads.filter(function (elem, i) {
       return i < 5;
     });
     window.pin.createPins(filteredAds);
+    diactivateForm();
+  };
+
+  var onSuccessLoad = function (data) {
+    ads = data;
+    renderAllPins();
   };
 
   var onError = function () {
@@ -79,7 +84,7 @@
 
   var activatePage = function (evt) {
     if (evt.which === 1) {
-      mapPins.appendChild(window.pin.fragment);
+      // mapPins.appendChild(window.pin.fragment);
 
       map.classList.remove('map--faded');
       window.form.form.classList.remove('ad-form--disabled');
@@ -116,7 +121,11 @@
   var houseType = document.querySelector('#housing-type');
   houseType.addEventListener('change', function (evt) {
     typeOfHouse = evt.target.value;
-    updateAds();
+    if (typeOfHouse === "any") {
+      renderAllPins();
+    } else {
+      updateAds();
+    }
   });
 
   form.addEventListener('submit', function (evt) {
