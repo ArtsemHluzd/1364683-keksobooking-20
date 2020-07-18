@@ -134,10 +134,43 @@
     window.addEventListener('keydown', onKeydownRemoveSuccess);
   };
 
+  var renderErrorMessage = function () {
+    var fragment = document.createDocumentFragment();
+    var errorTemaplate = document.querySelector('#error').content.querySelector('.error');
+    var error = errorTemaplate.cloneNode(true);
+    fragment.appendChild(error);
+    notice.appendChild(error);
+
+    var onClickRemoveError = function () {
+      error.remove();
+      window.removeEventListener('click', onClickRemoveError);
+      window.removeEventListener('keydown', onKeydownRemoveError);
+      errorButton.removeEventListener('click', onClickRemoveError);
+    };
+
+    var onKeydownRemoveError = function (evt) {
+      if (evt.key === 'Escape') {
+        error.remove();
+        window.removeEventListener('click', onClickRemoveError);
+        window.removeEventListener('keydown', onKeydownRemoveError);
+        errorButton.removeEventListener('click', onClickRemoveError);
+      }
+    };
+
+    var errorButton = error.querySelector('.error__button');
+    window.addEventListener('click', onClickRemoveError);
+    window.addEventListener('keydown', onKeydownRemoveError);
+    errorButton.addEventListener('click', onClickRemoveError);
+  };
+
   var onSuccessSave = function () {
     diactivateForm();
     insertAddressValueInitial();
     renderSuccessMessage();
+  };
+
+  var onErrorSave = function () {
+    renderErrorMessage();
   };
 
   var removeAllPins = function () {
@@ -173,7 +206,7 @@
 
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.backend.save(new FormData(form), onSuccessSave, onError);
+    window.backend.save(new FormData(form), onSuccessSave, onErrorSave);
   });
 
 
