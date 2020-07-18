@@ -31,6 +31,7 @@ var URL_TO = 'https://javascript.pages.academy/keksobooking';
       if (xhr.status === 200) {
         onSuccess(xhr);
         window.form.diactivateForm();
+        window.form.emptyForm();
       } else {
         onError('Что-то пошло не так');
       }

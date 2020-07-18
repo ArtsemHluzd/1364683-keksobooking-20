@@ -9,7 +9,7 @@
   var housingGuestsSelect = document.querySelector('#housing-guests');
   var form = document.querySelector('.ad-form');
   var mapPins = document.querySelector('.map__pins');
-  var mapFilters = document.querySelector('.map__filters');
+  // var mapFilters = document.querySelector('.map__filters');
   var fieldsets = document.querySelectorAll('fieldset');
   var map = document.querySelector('.map');
   var notice = document.querySelector('.notice');
@@ -65,6 +65,15 @@
     form.classList.add('ad-form--disabled');
   };
 
+  var emptyForm = function () {
+    var title = form.querySelector('#title');
+    var price = form.querySelector('#price');
+    var roomNumber = form.querySelector('#room_number');
+    title.value = '';
+    price.value = '';
+    roomNumber.value = '1';
+  };
+
   var renderAllPins = function () {
     filteredAds = ads.filter(function (elem, i) {
       return i < 5;
@@ -99,9 +108,36 @@
     }
   };
 
+
+  var renderSuccessMessage = function () {
+    var fragment = document.createDocumentFragment();
+    var successTemplate = document.querySelector('#success').content.querySelector('.success');
+    var success = successTemplate.cloneNode(true);
+    fragment.appendChild(success);
+    notice.appendChild(fragment);
+
+    var onClickRemoveSuccess = function () {
+      success.remove();
+      window.removeEventListener('click', onClickRemoveSuccess);
+      window.removeEventListener('click', onKeydownRemoveSuccess);
+    };
+
+    var onKeydownRemoveSuccess = function (evt) {
+      if (evt.key === 'Escape') {
+        success.remove();
+        window.removeEventListener('click', onKeydownRemoveSuccess);
+        window.removeEventListener('click', onClickRemoveSuccess);
+      }
+    }
+
+    window.addEventListener('click', onClickRemoveSuccess);
+    window.addEventListener('keydown', onKeydownRemoveSuccess);
+  };
+
   var onSuccessSave = function () {
     diactivateForm();
     insertAddressValueInitial();
+    renderSuccessMessage();
   };
 
   var removeAllPins = function () {
@@ -149,7 +185,8 @@
     diactivateForm: diactivateForm,
     activatePage: activatePage,
     map: map,
-    ads: ads
+    ads: ads,
+    emptyForm: emptyForm
   };
 
 
