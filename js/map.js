@@ -2,7 +2,7 @@
 
 (function () {
 
-  window.form.diactivateForm();
+  // window.form.diactivateForm();
   window.form.insertAddressValueInitial();
 
   window.form.mainPin.addEventListener('mousedown', function (evt) {

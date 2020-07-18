@@ -9,11 +9,12 @@
   var housingGuestsSelect = document.querySelector('#housing-guests');
   var form = document.querySelector('.ad-form');
   var mapPins = document.querySelector('.map__pins');
-  // var mapFilters = document.querySelector('.map__filters');
+  var mapFilters = document.querySelector('.map__filters');
   var fieldsets = document.querySelectorAll('fieldset');
   var map = document.querySelector('.map');
   var notice = document.querySelector('.notice');
   var noticeTitle = document.querySelector('.notice__title');
+  var pins = mapPins.getElementsByClassName('map__pin');
   var ads = [];
   var filteredAds = [];
 
@@ -57,7 +58,11 @@
     for (var i = 0; i < fieldsets.length; i++) {
       fieldsets[i].classList.add('disabled');
     }
-
+    if (map.classList.contains('map--faded') === false) {
+      map.classList.add('map--faded');
+    }
+    removeAllPins();
+    form.classList.add('ad-form--disabled');
   };
 
   var renderAllPins = function () {
@@ -65,7 +70,6 @@
       return i < 5;
     });
     window.pin.createPins(filteredAds);
-    diactivateForm();
   };
 
   var onSuccessLoad = function (data) {
@@ -100,19 +104,22 @@
     insertAddressValueInitial();
   };
 
+  var removeAllPins = function () {
+    for (var i = pins.length - 1; i > 0; i--) {
+      pins[1].parentNode.removeChild(pins[1]);
+    }
+  };
 
   var typeOfHouse;
 
   var updateAds = function () {
 
-    var pins = mapPins.getElementsByClassName('map__pin');
-    for (var i = pins.length; i > 0; i--) {
-      pins[0].parentNode.removeChild(pins[0]);
-    }
+    removeAllPins();
 
     filteredAds = ads.filter(function (item) {
       return item.offer.type === typeOfHouse;
     });
+    console.log(filteredAds);
     window.pin.createPins(filteredAds);
 
   };
@@ -121,7 +128,7 @@
   var houseType = document.querySelector('#housing-type');
   houseType.addEventListener('change', function (evt) {
     typeOfHouse = evt.target.value;
-    if (typeOfHouse === "any") {
+    if (typeOfHouse === 'any') {
       renderAllPins();
     } else {
       updateAds();
