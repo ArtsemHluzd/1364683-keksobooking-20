@@ -3,6 +3,7 @@
 (function () {
 
   var MAP_PIN_MAIN = 65;
+  var formResetButton = document.querySelector('.ad-form__reset');
   var addressInput = document.querySelector('#address');
   var mainPin = document.querySelector('.map__pin--main');
   var housingRoomsSelect = document.querySelector('#housing-rooms');
@@ -105,6 +106,8 @@
         fieldsets[i].classList.remove('disabled');
       }
       window.backend.load(onSuccessLoad, onError);
+
+      formResetButton.addEventListener('click', emptyForm);
     }
   };
 
