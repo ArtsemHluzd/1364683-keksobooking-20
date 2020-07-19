@@ -28,12 +28,11 @@
         window.common.changeAttribute(avatar, 'alt', alt);
 
         pin.addEventListener('click', function () {
-          // createCardAd(pins[i]);
-          console.log(ads[i]);
-          console.log(ads);
+          window.ad.renderCardAd(ads[0]);
         });
+
         fragment.appendChild(pin);
-      };
+      }
     }
     mapPins.appendChild(fragment);
   };

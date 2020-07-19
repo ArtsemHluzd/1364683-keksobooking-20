@@ -8,7 +8,7 @@
   var mainPin = document.querySelector('.map__pin--main');
   var form = document.querySelector('.ad-form');
   var mapPins = document.querySelector('.map__pins');
-  // var mapFilters = document.querySelector('.map__filters');
+  var mapFilters = document.querySelector('.map__filters');
   var fieldsets = document.querySelectorAll('fieldset');
   var map = document.querySelector('.map');
   var notice = document.querySelector('.notice');
@@ -117,9 +117,7 @@
     filteredAds = ads.filter(function (item) {
       return item.offer.type === typeOfHouse;
     });
-    console.log(filteredAds);
     window.pin.createPins(filteredAds);
-
   };
 
 
@@ -149,7 +147,8 @@
     map: map,
     ads: ads,
     emptyForm: emptyForm,
-    notice: notice
+    notice: notice,
+    mapFilters: mapFilters
   };
 
 
