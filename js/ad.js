@@ -47,6 +47,16 @@
       ul.querySelector('.popup__feature--conditioner').remove();
     }
 
+    card.querySelector('.popup__description').textContent = ad.offer.description;
+    var firstImg = card.querySelector('.popup__photos').querySelector('.popup__photo');
+    window.common.changeAttribute(firstImg, 'src', ad.offer.photos[0]);
+    for (var i = 1; i < ad.offer.photos.length - 1; i++) {
+      var img = firstImg.cloneNode();
+      window.common.changeAttribute(img, 'src', ad.offer.photos[i]);
+      card.querySelector('.popup__photos').appendChild(img);
+    }
+    console.log(ad);
+
     // ad.offer.features.forEach(function (it) {
 
     // });
