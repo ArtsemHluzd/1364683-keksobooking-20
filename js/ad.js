@@ -55,8 +55,11 @@
       window.common.changeAttribute(img, 'src', ad.offer.photos[i]);
       card.querySelector('.popup__photos').appendChild(img);
     }
+
     console.log(ad);
 
+    var avatar = card.querySelector('.popup__avatar');
+    window.common.changeAttribute(avatar, 'src', ad.author.avatar);
     // ad.offer.features.forEach(function (it) {
 
     // });
