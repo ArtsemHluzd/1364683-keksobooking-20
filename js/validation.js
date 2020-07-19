@@ -3,7 +3,7 @@
 (function () {
   var housingRoomsSelect = document.querySelector('#housing-rooms');
   var housingGuestsSelect = document.querySelector('#housing-guests');
-  console.log(housingRoomsSelect);
+  console.log(housingRoomsSelect.validity);
 
   window.form.form.addEventListener('submit', function () {
 
