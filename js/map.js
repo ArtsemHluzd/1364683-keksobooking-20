@@ -10,18 +10,6 @@
   var ads = [];
   var filteredAds = [];
 
-  window.pin.mainPin.addEventListener('mousedown', function (evt) {
-    window.form.activatePage(evt);
-    window.pin.moveMainPin();
-  });
-
-  window.pin.mainPin.addEventListener('keydown', function (evt) {
-    if (evt.key === 'Enter') {
-      window.form.activatePage(evt);
-      window.pin.moveMainPin();
-    }
-  });
-
   var removeAllPins = function () {
     for (var i = pins.length - 1; i > 0; i--) {
       pins[1].parentNode.removeChild(pins[1]);
