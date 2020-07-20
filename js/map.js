@@ -3,22 +3,22 @@
 (function () {
 
   var mapPins = document.querySelector('.map__pins');
-  var mainPin = document.querySelector('.map__pin--main');
   var pins = mapPins.getElementsByClassName('map__pin');
   var notice = document.querySelector('.notice');
   var noticeTitle = document.querySelector('.notice__title');
+  var map = document.querySelector('.map');
   var ads = [];
   var filteredAds = [];
 
-  mainPin.addEventListener('mousedown', function (evt) {
+  window.pin.mainPin.addEventListener('mousedown', function (evt) {
     window.form.activatePage(evt);
-    window.form.insertAddressValue();
+    window.pin.insertAddressValue();
   });
 
-  mainPin.addEventListener('keydown', function (evt) {
+  window.pin.mainPin.addEventListener('keydown', function (evt) {
     if (evt.key === 'Enter') {
       window.form.activatePage(evt);
-      window.form.insertAddressValue();
+      window.pin.insertAddressValue();
     }
   });
 
@@ -72,9 +72,10 @@
   window.map = {
     removeAllPins: removeAllPins,
     ads: ads,
+    map: map,
     onSuccessLoad: onSuccessLoad,
     onErrorLoad: onErrorLoad,
-    mainPin: mainPin
+    notice: notice
   };
 
 })();

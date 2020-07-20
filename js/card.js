@@ -61,7 +61,7 @@
 
 
     fragment.appendChild(card);
-    window.form.map.insertBefore(fragment, mapFiltersContainer);
+    window.map.map.insertBefore(fragment, mapFiltersContainer);
 
 
     var onClickCloseCardAd = function () {
@@ -81,7 +81,6 @@
     var cardCloseBtn = document.querySelector('.popup__close');
     cardCloseBtn.addEventListener('click', onClickCloseCardAd);
     window.addEventListener('keydown', onKeydownCloseCardAd);
-    console.log(document.querySelector('.map__card'));
   };
 
   window.card = {
