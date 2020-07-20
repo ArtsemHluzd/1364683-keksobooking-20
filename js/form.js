@@ -11,21 +11,24 @@
   var map = document.querySelector('.map');
 
   var insertAddressValue = function () {
-    window.map.mainPin.addEventListener('mousemove', function () {
-      var boundPin = window.map.mainPin.getBoundingClientRect().left;
-      var boundMap = map.getBoundingClientRect().left;
-      var boundPinTop = window.map.mainPin.getBoundingClientRect().top;
-      var left = boundPin - boundMap - (window.card.MAP_PIN_WIDTH / 2);
-      var top = boundPinTop - window.card.MAP_PIN_HEIGHT + pageYOffset;
-      var addressValue = Math.round(left) + ' , ' + Math.round(top);
-      addressInput.value = addressValue;
+    window.map.mainPin.addEventListener('mousedown', function () {
+      window.map.mainPin.addEventListener('mousemove', function () {
+        var boundPin = window.map.mainPin.getBoundingClientRect().left;
+        var boundMap = map.getBoundingClientRect().left;
+        var boundPinTop = window.map.mainPin.getBoundingClientRect().top;
+        var left = boundPin - boundMap - (window.pin.MAP_PIN_WIDTH / 2);
+        var top = boundPinTop - window.pin.MAP_PIN_HEIGHT + pageYOffset;
+        var addressValue = Math.round(left) + ', ' + Math.round(top);
+        addressInput.value = addressValue;
+      });
     });
   };
 
   var insertAddressValueInitial = function () {
     var left = window.map.mainPin.getBoundingClientRect().left - map.getBoundingClientRect().left + (MAP_PIN_MAIN / 2);
     var top = window.map.mainPin.getBoundingClientRect().top + pageYOffset + (MAP_PIN_MAIN / 2);
-    var addressValue = Math.round(left) + ' , ' + Math.round(top);
+    var addressValue = Math.round(left) + ', ' + Math.round(top);
+    console.log(addressValue);
     addressInput.value = addressValue;
   };
 

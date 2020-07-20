@@ -39,7 +39,9 @@
 
   window.pin = {
     createPins: createPins,
-    fragment: fragment
+    fragment: fragment,
+    MAP_PIN_WIDTH: MAP_PIN_WIDTH,
+    MAP_PIN_HEIGHT: MAP_PIN_HEIGHT
   };
 
 })();
