@@ -55,7 +55,7 @@
   };
 
   var activatePage = function (evt) {
-    if (evt.which === 1) {
+    if (evt.which === 1 || evt.key === 'Enter') {
 
       map.classList.remove('map--faded');
       form.classList.remove('ad-form--disabled');
