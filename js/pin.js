@@ -27,8 +27,9 @@
         window.common.changeAttribute(avatar, 'alt', alt);
 
         pin.addEventListener('click', function (evt) {
-          console.log(evt);
-          window.ad.renderCardAd(ads[0]);
+          if (document.querySelector('.map__card') === null) {
+            window.card.renderCardAd(ads[0]);
+          }
         });
 
         fragment.appendChild(pin);

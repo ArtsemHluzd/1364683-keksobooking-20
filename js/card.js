@@ -81,9 +81,10 @@
     var cardCloseBtn = document.querySelector('.popup__close');
     cardCloseBtn.addEventListener('click', onClickCloseCardAd);
     window.addEventListener('keydown', onKeydownCloseCardAd);
+    console.log(document.querySelector('.map__card'));
   };
 
-  window.ad = {
+  window.card = {
     renderCardAd: renderCardAd
   };
 

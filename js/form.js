@@ -28,7 +28,6 @@
     var left = window.map.mainPin.getBoundingClientRect().left - map.getBoundingClientRect().left + (MAP_PIN_MAIN / 2);
     var top = window.map.mainPin.getBoundingClientRect().top + pageYOffset + (MAP_PIN_MAIN / 2);
     var addressValue = Math.round(left) + ', ' + Math.round(top);
-    console.log(addressValue);
     addressInput.value = addressValue;
   };
 
