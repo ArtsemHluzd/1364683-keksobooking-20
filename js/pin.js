@@ -25,7 +25,9 @@
         var alt = ads[i].offer.title;
         window.common.changeAttribute(avatar, 'src', src);
         window.common.changeAttribute(avatar, 'alt', alt);
-        pin.addEventListener('click', function () {
+
+        pin.addEventListener('click', function (evt) {
+          console.log(evt);
           window.ad.renderCardAd(ads[0]);
         });
 
