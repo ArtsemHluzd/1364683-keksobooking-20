@@ -62,26 +62,26 @@
 
     fragment.appendChild(card);
     window.form.map.insertBefore(fragment, mapFiltersContainer);
-  };
 
-  var card;
-  var onClickCloseCardAd = function (card) {
-    card.remove();
-    cardCloseBtn.removeEventListener('click', closeCardAd);
-    cardCloseBtn.removeEventListener('keydowm', closeCardAd);
-  };
 
-  var onKeydownCloseCardAd = function (evt) {
-    if (evt.key === 'Escape') {
+    var onClickCloseCardAd = function () {
       card.remove();
-      cardCloseBtn.removeEventListener('click', closeCardAd);
-      cardCloseBtn.removeEventListener('keydowm', closeCardAd);
-    }
-  };
+      cardCloseBtn.removeEventListener('click', onClickCloseCardAd);
+      cardCloseBtn.removeEventListener('keydown', onKeydownCloseCardAd);
+    };
 
-  var cardCloseBtn = document.querySelector('.popup__close');
-  cardCloseBtn.addEventListener('click', onClickCloseCardAd);
-  window.addEventListener('keydowm', onKeydownCloseCardAd);
+    var onKeydownCloseCardAd = function (evt) {
+      if (evt.key === 'Escape') {
+        card.remove();
+        cardCloseBtn.removeEventListener('click', onClickCloseCardAd);
+        cardCloseBtn.removeEventListener('keydown', onKeydownCloseCardAd);
+      }
+    };
+
+    var cardCloseBtn = document.querySelector('.popup__close');
+    cardCloseBtn.addEventListener('click', onClickCloseCardAd);
+    window.addEventListener('keydown', onKeydownCloseCardAd);
+  };
 
   window.ad = {
     renderCardAd: renderCardAd
