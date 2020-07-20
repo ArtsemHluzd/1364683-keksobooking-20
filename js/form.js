@@ -8,9 +8,6 @@
   var fieldsets = document.querySelectorAll('fieldset');
 
 
-  window.pin.insertAddressValueInitial();
-
-
   var diactivateForm = function () {
     for (var i = 0; i < fieldsets.length; i++) {
       fieldsets[i].classList.add('disabled');
@@ -47,7 +44,6 @@
 
   var onSuccessSave = function () {
     diactivateForm();
-    window.pin.insertAddressValueInitial();
     window.validation.renderSuccessMessage();
   };
 

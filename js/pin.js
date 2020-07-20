@@ -2,7 +2,6 @@
 
 (function () {
 
-  var MAP_PIN_MAIN = 65;
   var MAP_PIN_WIDTH = 50;
   var MAP_PIN_HEIGHT = 70;
   var mainPin = document.querySelector('.map__pin--main');
@@ -41,25 +40,48 @@
     mapPins.appendChild(fragment);
   };
 
-  var insertAddressValue = function () {
-    mainPin.addEventListener('mousedown', function () {
-      mainPin.addEventListener('mousemove', function () {
-        var boundPin = mainPin.getBoundingClientRect().left;
-        var boundMap = window.map.map.getBoundingClientRect().left;
-        var boundPinTop = mainPin.getBoundingClientRect().top;
-        var left = boundPin - boundMap - (MAP_PIN_WIDTH / 2);
-        var top = boundPinTop - MAP_PIN_HEIGHT + pageYOffset;
+  var moveMainPin = function () {
+    mainPin.addEventListener('mousedown', function (evt) {
+      evt.preventDefault();
+
+      var startCoords = {
+        y: evt.clientY,
+        X: evt.clientX
+      };
+
+      var onMousemoveMainPin = function (moveEvt) {
+        moveEvt.preventDefault();
+
+        var shift = {
+          y: startCoords.y - moveEvt.clientY,
+          x: startCoords.x - moveEvt.clientX
+        };
+
+        startCoords = {
+          y: moveEvt.clientY,
+          x: moveEvt.clientX
+        };
+
+        var top = (mainPin.offsetTop - shift.y);
+        var left = (mainPin.offsetLeft - shift.x);
+
+        mainPin.style.left = left + 'px';
+        mainPin.style.top = top + 'px';
+
         var addressValue = Math.round(left) + ', ' + Math.round(top);
         addressInput.value = addressValue;
-      });
-    });
-  };
+      };
 
-  var insertAddressValueInitial = function () {
-    var left = mainPin.getBoundingClientRect().left - window.map.map.getBoundingClientRect().left + (MAP_PIN_MAIN / 2);
-    var top = mainPin.getBoundingClientRect().top + pageYOffset + (MAP_PIN_MAIN / 2);
-    var addressValue = Math.round(left) + ', ' + Math.round(top);
-    addressInput.value = addressValue;
+      var onMouseupMainPin = function (upEvt) {
+        upEvt.preventDefault();
+
+        mainPin.removeEventListener('mousemove', onMousemoveMainPin);
+        mainPin.removeEventListener('mouseup', onMouseupMainPin);
+      };
+
+      mainPin.addEventListener('mousemove', onMousemoveMainPin);
+      mainPin.addEventListener('mouseup', onMouseupMainPin);
+    });
   };
 
 
@@ -67,9 +89,8 @@
     createPins: createPins,
     MAP_PIN_WIDTH: MAP_PIN_WIDTH,
     MAP_PIN_HEIGHT: MAP_PIN_HEIGHT,
-    insertAddressValue: insertAddressValue,
-    insertAddressValueInitial: insertAddressValueInitial,
-    mainPin: mainPin
+    mainPin: mainPin,
+    moveMainPin: moveMainPin
   };
 
 })();

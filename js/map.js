@@ -12,13 +12,13 @@
 
   window.pin.mainPin.addEventListener('mousedown', function (evt) {
     window.form.activatePage(evt);
-    window.pin.insertAddressValue();
+    window.pin.moveMainPin();
   });
 
   window.pin.mainPin.addEventListener('keydown', function (evt) {
     if (evt.key === 'Enter') {
       window.form.activatePage(evt);
-      window.pin.insertAddressValue();
+      window.pin.moveMainPin();
     }
   });
 
