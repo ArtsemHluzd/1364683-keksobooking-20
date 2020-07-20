@@ -20,12 +20,14 @@
         var topPin = ads[i].location.y - MAP_PIN_HEIGHT;
         var style = 'left: ' + left + 'px; top: ' + topPin + 'px';
         window.common.changeAttribute(pin, 'style', style);
-
         var avatar = pin.querySelector('img');
         var src = ads[i].author.avatar;
         var alt = ads[i].offer.title;
         window.common.changeAttribute(avatar, 'src', src);
         window.common.changeAttribute(avatar, 'alt', alt);
+        pin.addEventListener('click', function () {
+          window.ad.renderCardAd(ads[0]);
+        });
 
         fragment.appendChild(pin);
       }
