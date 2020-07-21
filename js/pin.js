@@ -5,7 +5,8 @@
   var MAIN_PIN_HEIGHT = 65;
   var MAP_PIN_WIDTH = 50;
   var MAP_PIN_HEIGHT = 70;
-  var MAP_LEFT_MERGIN = 250;
+  var MAP_Y_MIN = 130;
+  var MAP_Y_MAX = 630;
   var mainPin = document.querySelector('.map__pin--main');
   var addressInput = document.querySelector('#address');
   var ADS_LENGTH = 5;
@@ -72,12 +73,12 @@
     var onMousemoveMainPin = function (moveEvt) {
       moveEvt.preventDefault();
 
-      if ((moveEvt.pageY - MAIN_PIN_HEIGHT / 2) > 0
-        && moveEvt.pageY < mainPin.parentNode.offsetHeight) {
+      if ((moveEvt.pageY - MAIN_PIN_HEIGHT / 2) > MAP_Y_MIN
+        && moveEvt.pageY < MAP_Y_MAX) {
         // ограничение по Y реализовал, а по X не могу
         // && moveEvt.pageX > 0
         // && moveEvt.pageX < mainPin.parentNode.offsetWidth)
-
+console.log(moveEvt);
         var shift = {
           y: startCoords.y - moveEvt.clientY,
           x: startCoords.x - moveEvt.clientX
