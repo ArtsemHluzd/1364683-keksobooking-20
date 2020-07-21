@@ -25,7 +25,7 @@
     var successTemplate = document.querySelector('#success').content.querySelector('.success');
     var success = successTemplate.cloneNode(true);
     fragment.appendChild(success);
-    window.form.notice.appendChild(fragment);
+    window.map.notice.appendChild(fragment);
 
     var onClickRemoveSuccess = function () {
       success.remove();
@@ -50,7 +50,7 @@
     var errorTemaplate = document.querySelector('#error').content.querySelector('.error');
     var error = errorTemaplate.cloneNode(true);
     fragment.appendChild(error);
-    window.form.notice.appendChild(error);
+    window.map.notice.appendChild(error);
 
     var onClickRemoveError = function () {
       error.remove();

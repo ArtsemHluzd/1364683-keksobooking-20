@@ -58,17 +58,32 @@
 
     var avatar = card.querySelector('.popup__avatar');
     window.common.changeAttribute(avatar, 'src', ad.author.avatar);
-    // ad.offer.features.forEach(function (it) {
-
-    // });
 
 
     fragment.appendChild(card);
-    window.form.map.insertBefore(fragment, mapFiltersContainer);
+    window.map.map.insertBefore(fragment, mapFiltersContainer);
+
+
+    var onClickCloseCardAd = function () {
+      card.remove();
+      cardCloseBtn.removeEventListener('click', onClickCloseCardAd);
+      cardCloseBtn.removeEventListener('keydown', onKeydownCloseCardAd);
+    };
+
+    var onKeydownCloseCardAd = function (evt) {
+      if (evt.key === 'Escape') {
+        card.remove();
+        cardCloseBtn.removeEventListener('click', onClickCloseCardAd);
+        cardCloseBtn.removeEventListener('keydown', onKeydownCloseCardAd);
+      }
+    };
+
+    var cardCloseBtn = document.querySelector('.popup__close');
+    cardCloseBtn.addEventListener('click', onClickCloseCardAd);
+    window.addEventListener('keydown', onKeydownCloseCardAd);
   };
 
-
-  window.ad = {
+  window.card = {
     renderCardAd: renderCardAd
   };
 
