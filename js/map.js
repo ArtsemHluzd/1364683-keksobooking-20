@@ -8,7 +8,9 @@
   var noticeTitle = document.querySelector('.notice__title');
   var map = document.querySelector('.map');
   var ads = [];
-  var filteredAds = [];
+  var filteredPins = [];
+  var filteredByType = [];
+  var filteredByPrice = [];
 
   var removeAllPins = function () {
     for (var i = pins.length - 1; i > 0; i--) {
@@ -17,34 +19,62 @@
   };
 
   var renderAllPins = function () {
-    filteredAds = ads.filter(function (elem, i) {
+    var firstFivePins = ads.filter(function (elem, i) {
       return i < 5;
     });
-    window.pin.createPins(filteredAds);
+    window.pin.createPins(firstFivePins);
   };
 
   var updatePins = function () {
-
     removeAllPins();
-    filteredAds = ads.filter(function (item) {
-      return item.offer.type === typeOfHouse;
-    });
-    window.pin.createPins(filteredAds);
+    filteredPins = filteredByType.concat(filteredByPrice);
+    // console.log(filteredPins);
+    // for (var i = 0; i < filteredPins.length; i++) {
+    // console.log(filteredPins[i].offer.price);
+    // }
+    window.pin.createPins(filteredPins);
   };
 
-  var typeOfHouse;
+
   var houseType = document.querySelector('#housing-type');
-  houseType.addEventListener('change', function (evt) {
-    typeOfHouse = evt.target.value;
-    if (typeOfHouse === 'any') {
-      renderAllPins();
+  houseType.addEventListener('change', function () {
+    if (houseType.value === 'any') {
+      filteredByType = ads.filter(function (item) {
+        return item.offer.type;
+      });
     } else {
-      updatePins();
+      filteredByType = ads.filter(function (item) {
+        return item.offer.type === houseType.value;
+      });
     }
+    updatePins();
+  });
+
+  var housePrice = document.querySelector('#housing-price');
+  housePrice.addEventListener('change', function () {
+    if (housePrice.value === 'low') {
+      filteredByPrice = ads.filter(function (it) {
+        return it.offer.price <= 10000;
+      });
+    } else if (housePrice.value === 'middle') {
+      filteredByPrice = ads.filter(function (it) {
+        return it.offer.price > 10000 && it.offer.price < 50000;
+      });
+    } else if (housePrice.value === 'high') {
+      filteredByPrice = ads.filter(function (it) {
+        return it.offer.price >= 50000;
+      });
+    } else if (housePrice.value === 'any') {
+      filteredByPrice = ads.filter(function (it) {
+        return it.offer.price;
+      });
+    }
+    updatePins();
   });
 
   var onSuccessLoad = function (data) {
     ads = data;
+    filteredPins = data;
     renderAllPins();
   };
 
