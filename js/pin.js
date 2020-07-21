@@ -74,11 +74,10 @@
       moveEvt.preventDefault();
 
       if ((moveEvt.pageY - MAIN_PIN_HEIGHT / 2) > MAP_Y_MIN
-        && moveEvt.pageY < MAP_Y_MAX) {
+        && (moveEvt.pageY - MAP_PIN_HEIGHT / 2) < MAP_Y_MAX) {
         // ограничение по Y реализовал, а по X не могу
         // && moveEvt.pageX > 0
         // && moveEvt.pageX < mainPin.parentNode.offsetWidth)
-console.log(moveEvt);
         var shift = {
           y: startCoords.y - moveEvt.clientY,
           x: startCoords.x - moveEvt.clientX
