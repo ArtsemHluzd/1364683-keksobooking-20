@@ -19,8 +19,6 @@
     for (var i = 0; i < ads.length; i++) {
       if (i < ADS_LENGTH) {
         var pin = pinTemplate.cloneNode(true);
-
-
         var left = ads[i].location.x - (MAP_PIN_WIDTH / 2);
         var topPin = ads[i].location.y - MAP_PIN_HEIGHT;
         var style = 'left: ' + left + 'px; top: ' + topPin + 'px';
