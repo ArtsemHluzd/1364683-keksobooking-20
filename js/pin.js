@@ -3,6 +3,7 @@
 (function () {
 
   var MAIN_PIN_HEIGHT = 65;
+  var MAIN_PIN_HEIGHT_HALF = 65 / 2;
   var MAP_PIN_WIDTH = 50;
   var MAP_PIN_HEIGHT = 70;
   var MAP_Y_MIN = 130;
@@ -49,6 +50,15 @@
     }
   });
 
+  var insertAddressValue = function (leftTo, topTo) {
+
+    var left = mainPin.offsetLeft + leftTo;
+    var top = mainPin.offsetTop + topTo;
+
+    var addressValue = Math.round(left) + ', ' + Math.round(top);
+    addressInput.value = addressValue;
+  };
+
   mainPin.addEventListener('mousedown', function (evt) {
     window.form.activatePage(evt);
     evt.preventDefault();
@@ -56,18 +66,6 @@
     var startCoords = {
       y: evt.clientY,
       X: evt.clientX
-    };
-
-
-    var insertAddressValue = function (shiftY = 0, shiftX = 0) {
-
-      var top = (mainPin.offsetTop - shiftY);
-      var left = (mainPin.offsetLeft - shiftX);
-
-      mainPin.style.left = left + 'px';
-      mainPin.style.top = top + 'px';
-      var addressValue = Math.round(left) + ', ' + Math.round(top);
-      addressInput.value = addressValue;
     };
 
     var onMousemoveMainPin = function (moveEvt) {
@@ -88,7 +86,13 @@
           x: moveEvt.clientX
         };
 
-        insertAddressValue(shift.y, shift.x)
+        var top = (mainPin.offsetTop - shift.y);
+        var left = (mainPin.offsetLeft - shift.x);
+
+        mainPin.style.left = left + 'px';
+        mainPin.style.top = top + 'px';
+
+        insertAddressValue(MAIN_PIN_HEIGHT_HALF, MAIN_PIN_HEIGHT);
 
       }
 
@@ -97,7 +101,7 @@
     var onMouseupMainPin = function (upEvt) {
       upEvt.preventDefault();
 
-      insertAddressValue();
+      insertAddressValue(MAIN_PIN_HEIGHT_HALF, MAIN_PIN_HEIGHT);
 
       window.removeEventListener('mousemove', onMousemoveMainPin);
       window.removeEventListener('mouseup', onMouseupMainPin);
@@ -110,9 +114,11 @@
 
   window.pin = {
     createPins: createPins,
+    insertAddressValue: insertAddressValue,
     MAP_PIN_WIDTH: MAP_PIN_WIDTH,
     MAP_PIN_HEIGHT: MAP_PIN_HEIGHT,
-    mainPin: mainPin
+    MAIN_PIN_HEIGHT_HALF: MAIN_PIN_HEIGHT_HALF,
+    mainPin: mainPin,
   };
 
 })();

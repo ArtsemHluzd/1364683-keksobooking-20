@@ -17,12 +17,18 @@
     }
     window.map.removeAllPins();
     form.classList.add('ad-form--disabled');
+    console.log(window.pin.mainPin);
+    console.log(window.pin.mainPin.offsetLeft);
+    window.pin.insertAddressValue(window.pin.MAIN_PIN_HEIGHT_HALF, window.pin.MAIN_PIN_HEIGHT_HALF);
   };
+
+  diactivateForm();
 
   var emptyForm = function () {
     var title = form.querySelector('#title');
     var price = form.querySelector('#price');
     var roomNumber = form.querySelector('#room_number');
+
     title.value = '';
     price.value = '';
     roomNumber.value = '1';
@@ -52,10 +58,11 @@
   };
 
   form.addEventListener('submit', function (evt) {
-    evt.preventDefault();
-    window.backend.save(new FormData(form), onSuccessSave, onErrorSave);
-  });
 
+    console.log(form);
+    window.backend.save(new FormData(form), onSuccessSave, onErrorSave);
+    evt.preventDefault();
+  });
 
   window.form = {
     form: form,
