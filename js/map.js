@@ -35,6 +35,14 @@
     window.pin.createPins(filteredPins);
   };
 
+  var debounce = function (cb) {
+    var lastTimeout;
+    if (lastTimeout) {
+      window.clearTimeout(lastTimeout);
+    }
+    lastTimeout = window.setTimeout(cb, 500);
+  };
+
 
   var houseType = document.querySelector('#housing-type');
   houseType.addEventListener('change', function () {
@@ -47,7 +55,7 @@
         return item.offer.type === houseType.value;
       });
     }
-    updatePins();
+    debounce(updatePins);
   });
 
   var housePrice = document.querySelector('#housing-price');
@@ -69,7 +77,7 @@
         return it.offer.price;
       });
     }
-    updatePins();
+    debounce(updatePins);
   });
 
   var onSuccessLoad = function (data) {
