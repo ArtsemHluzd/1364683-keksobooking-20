@@ -7,6 +7,28 @@
   var mapFilters = document.querySelector('.map__filters');
   var fieldsets = document.querySelectorAll('fieldset');
 
+  var title = form.querySelector('#title');
+  var price = form.querySelector('#price');
+  var roomNumber = form.querySelector('#room_number');
+  var type = form.querySelector('#type');
+  var timein = form.querySelector('#timein');
+  var wifi = form.querySelector('#feature-wifi');
+  var wifiLabel = form.querySelector('.feature--wifi');
+
+wifi.addEventListener('change', function () {
+  console.log(wifi);
+  console.log(wifiLabel);
+});
+
+  var emptyForm = function () {
+
+    title.value = '';
+    price.value = '';
+    roomNumber.value = '1';
+    type.value = 'flat';
+    timein.value = '12:00';
+    wifi.value = false;
+  };
 
   var diactivateForm = function () {
     for (var i = 0; i < fieldsets.length; i++) {
@@ -18,20 +40,12 @@
     window.map.removeAllPins();
     form.classList.add('ad-form--disabled');
 
+    emptyForm();
+
     window.pin.insertAddressValue(window.pin.MAIN_PIN_HEIGHT_HALF, window.pin.MAIN_PIN_HEIGHT_HALF);
   };
 
   diactivateForm();
-
-  var emptyForm = function () {
-    var title = form.querySelector('#title');
-    var price = form.querySelector('#price');
-    var roomNumber = form.querySelector('#room_number');
-
-    title.value = '';
-    price.value = '';
-    roomNumber.value = '1';
-  };
 
   var activatePage = function (evt) {
     if (evt.which === 1 || evt.key === 'Enter') {

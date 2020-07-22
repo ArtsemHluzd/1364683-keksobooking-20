@@ -4,21 +4,21 @@
   var housingRoomsSelect = document.querySelector('#housing-rooms');
   var housingGuestsSelect = document.querySelector('#housing-guests');
 
-  window.form.form.addEventListener('submit', function () {
+  // window.form.form.addEventListener('submit', function () {
 
-    var selectRooms = housingRoomsSelect.value;
-    var selectGuests = housingGuestsSelect.value;
+  //   var selectRooms = housingRoomsSelect.value;
+  //   var selectGuests = housingGuestsSelect.value;
 
-    if (selectRooms === 1 && selectGuests !== 1) {
-      housingRoomsSelect.setCustomValidity('Вы можете выбрать для 1 гостя');
-    } else if (selectRooms === 2 && selectGuests !== 1 && selectGuests !== 2) {
-      housingRoomsSelect.setCustomValidity('Вы можете выбрать для 1 гостя или для 2 гостей');
-    } else if (selectRooms === 3 && selectGuests !== 1 && selectGuests !== 2 && selectGuests !== 3) {
-      housingRoomsSelect.setCustomValidity('Вы можете выбрать для 1 гостя, для 2 или 3 гостей');
-    } else {
-      housingRoomsSelect.setCustomValidity('Вы можете выбрать только нет гостей');
-    }
-  });
+  //   if (selectRooms === 1 && selectGuests !== 1) {
+  //     housingRoomsSelect.setCustomValidity('Вы можете выбрать для 1 гостя');
+  //   } else if (selectRooms === 2 && selectGuests !== 1 && selectGuests !== 2) {
+  //     housingRoomsSelect.setCustomValidity('Вы можете выбрать для 1 гостя или для 2 гостей');
+  //   } else if (selectRooms === 3 && selectGuests !== 1 && selectGuests !== 2 && selectGuests !== 3) {
+  //     housingRoomsSelect.setCustomValidity('Вы можете выбрать для 1 гостя, для 2 или 3 гостей');
+  //   } else {
+  //     housingRoomsSelect.setCustomValidity('Вы можете выбрать только нет гостей');
+  //   }
+  // });
 
   var renderSuccessMessage = function () {
     var fragment = document.createDocumentFragment();
