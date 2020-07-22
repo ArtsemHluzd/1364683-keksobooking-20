@@ -17,8 +17,7 @@
     }
     window.map.removeAllPins();
     form.classList.add('ad-form--disabled');
-    console.log(window.pin.mainPin);
-    console.log(window.pin.mainPin.offsetLeft);
+
     window.pin.insertAddressValue(window.pin.MAIN_PIN_HEIGHT_HALF, window.pin.MAIN_PIN_HEIGHT_HALF);
   };
 
@@ -58,8 +57,6 @@
   };
 
   form.addEventListener('submit', function (evt) {
-
-    console.log(form);
     window.backend.save(new FormData(form), onSuccessSave, onErrorSave);
     evt.preventDefault();
   });
