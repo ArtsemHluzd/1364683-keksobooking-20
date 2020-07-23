@@ -1,24 +1,25 @@
 'use strict';
 
 (function () {
-  var housingRoomsSelect = document.querySelector('#housing-rooms');
-  var housingGuestsSelect = document.querySelector('#housing-guests');
 
-  // window.form.form.addEventListener('submit', function () {
+  var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
-  //   var selectRooms = housingRoomsSelect.value;
-  //   var selectGuests = housingGuestsSelect.value;
+  window.form.form.addEventListener('submit', function () {
+    console.log(window.form.rooms.value);
 
-  //   if (selectRooms === 1 && selectGuests !== 1) {
-  //     housingRoomsSelect.setCustomValidity('Вы можете выбрать для 1 гостя');
-  //   } else if (selectRooms === 2 && selectGuests !== 1 && selectGuests !== 2) {
-  //     housingRoomsSelect.setCustomValidity('Вы можете выбрать для 1 гостя или для 2 гостей');
-  //   } else if (selectRooms === 3 && selectGuests !== 1 && selectGuests !== 2 && selectGuests !== 3) {
-  //     housingRoomsSelect.setCustomValidity('Вы можете выбрать для 1 гостя, для 2 или 3 гостей');
-  //   } else {
-  //     housingRoomsSelect.setCustomValidity('Вы можете выбрать только нет гостей');
-  //   }
-  // });
+    var selectRooms = window.form.rooms.value;
+    var selectGuests = window.form.rooms.value;
+
+    if (selectRooms === 1 && selectGuests !== 1) {
+      window.form.capacity.setCustomValidity('Вы можете выбрать для 1 гостя');
+    } else if (selectRooms === 2 && selectGuests !== 1 && selectGuests !== 2) {
+      window.form.capacity.setCustomValidity('Вы можете выбрать для 1 гостя или для 2 гостей');
+    } else if (selectRooms === 3 && selectGuests !== 1 && selectGuests !== 2 && selectGuests !== 3) {
+      window.form.capacity.setCustomValidity('Вы можете выбрать для 1 гостя, для 2 или 3 гостей');
+    } else {
+      window.form.capacity.setCustomValidity('Вы можете выбрать только нет гостей');
+    }
+  });
 
   var renderSuccessMessage = function () {
     var fragment = document.createDocumentFragment();
@@ -78,5 +79,18 @@
     renderErrorMessage: renderErrorMessage,
     renderSuccessMessage: renderSuccessMessage
   };
+
+  window.form.imagesInput.addEventListener('change', function () {
+    var image = window.form.imagesInput.files[0];
+    var imageName = image.name.toLowerCase();
+
+    var matches = FILE_TYPES.some(function (it) {
+      return imageName.endsWith(it);
+    })
+
+    if (matches === false) {
+      alert("Можно загрузить только изображения следующих форматов: 'gif', 'jpg', 'jpeg', 'png'. Пожалуста, загрузите другой файл")
+    }
+  });
 
 })();
