@@ -2,16 +2,23 @@
 
 (function () {
 
-  var form = document.querySelector('.ad-form');
-  var mapFilters = document.querySelector('.map__filters');
-  var fieldsets = document.querySelectorAll('fieldset');
   var INITIAL_COORDS_MAINPIN = {
     y: 375,
     x: 570
   };
+  var form = document.querySelector('.ad-form');
+  var mapFilters = document.querySelector('.map__filters');
+  var fieldsets = document.querySelectorAll('fieldset');
+  var resetFormBtn = document.querySelector('.ad-form__reset');
+  var formFilter = document.querySelector('.map__filters');
+  var timein = document.querySelector('#timein');
+  var timeout = document.querySelector('#timeout');
+  var fieldsetTime = document.querySelector('.ad-form__element--time');
+
   var diactivateForm = function () {
 
     form.reset();
+    formFilter.reset();
 
     for (var i = 0; i < fieldsets.length; i++) {
       fieldsets[i].classList.add('disabled');
@@ -45,6 +52,8 @@
     }
   };
 
+  resetFormBtn.addEventListener('click', diactivateForm);
+
   var onSuccessSave = function () {
     diactivateForm();
     window.validation.renderSuccessMessage();
@@ -57,6 +66,14 @@
   form.addEventListener('submit', function (evt) {
     window.backend.save(new FormData(form), onSuccessSave, onErrorSave);
     evt.preventDefault();
+  });
+
+  timein.addEventListener('change', function () {
+    timeout.value = timein.value;
+  });
+
+  timeout.addEventListener('change', function () {
+  timein.value = timeout.value;
   });
 
   window.form = {
