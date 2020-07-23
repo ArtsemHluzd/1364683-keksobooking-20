@@ -2,35 +2,14 @@
 
 (function () {
 
-  var formResetButton = document.querySelector('.ad-form__reset');
   var form = document.querySelector('.ad-form');
   var mapFilters = document.querySelector('.map__filters');
   var fieldsets = document.querySelectorAll('fieldset');
 
-  var title = form.querySelector('#title');
-  var price = form.querySelector('#price');
-  var roomNumber = form.querySelector('#room_number');
-  var type = form.querySelector('#type');
-  var timein = form.querySelector('#timein');
-  var wifi = form.querySelector('#feature-wifi');
-  var wifiLabel = form.querySelector('.feature--wifi');
-
-wifi.addEventListener('change', function () {
-  console.log(wifi);
-  console.log(wifiLabel);
-});
-
-  var emptyForm = function () {
-
-    title.value = '';
-    price.value = '';
-    roomNumber.value = '1';
-    type.value = 'flat';
-    timein.value = '12:00';
-    wifi.value = false;
-  };
-
   var diactivateForm = function () {
+
+    form.reset();
+
     for (var i = 0; i < fieldsets.length; i++) {
       fieldsets[i].classList.add('disabled');
     }
@@ -39,9 +18,6 @@ wifi.addEventListener('change', function () {
     }
     window.map.removeAllPins();
     form.classList.add('ad-form--disabled');
-
-    emptyForm();
-
     window.pin.insertAddressValue(window.pin.MAIN_PIN_HEIGHT_HALF, window.pin.MAIN_PIN_HEIGHT_HALF);
   };
 
@@ -57,7 +33,6 @@ wifi.addEventListener('change', function () {
       }
       window.backend.load(window.map.onSuccessLoad, window.map.onErrorLoad);
 
-      formResetButton.addEventListener('click', emptyForm);
     }
   };
 
@@ -79,7 +54,6 @@ wifi.addEventListener('change', function () {
     form: form,
     diactivateForm: diactivateForm,
     activatePage: activatePage,
-    emptyForm: emptyForm,
     mapFilters: mapFilters
   };
 
