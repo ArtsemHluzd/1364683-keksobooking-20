@@ -54,9 +54,16 @@
 
     var left = mainPin.offsetLeft + leftTo;
     var top = mainPin.offsetTop + topTo;
+    console.log(mainPin.offsetLeft);
+    console.log(mainPin.offsetTop);
 
     var addressValue = Math.round(left) + ', ' + Math.round(top);
     addressInput.value = addressValue;
+  };
+
+  var moveMainPin = function (top, left) {
+    mainPin.style.left = left + 'px';
+    mainPin.style.top = top + 'px';
   };
 
   mainPin.addEventListener('mousedown', function (evt) {
@@ -89,9 +96,7 @@
         var top = (mainPin.offsetTop - shift.y);
         var left = (mainPin.offsetLeft - shift.x);
 
-        mainPin.style.left = left + 'px';
-        mainPin.style.top = top + 'px';
-
+        moveMainPin(top, left);
         insertAddressValue(MAIN_PIN_HEIGHT_HALF, MAIN_PIN_HEIGHT);
 
       }
@@ -115,6 +120,7 @@
   window.pin = {
     createPins: createPins,
     insertAddressValue: insertAddressValue,
+    moveMainPin: moveMainPin,
     MAP_PIN_WIDTH: MAP_PIN_WIDTH,
     MAP_PIN_HEIGHT: MAP_PIN_HEIGHT,
     MAIN_PIN_HEIGHT_HALF: MAIN_PIN_HEIGHT_HALF,

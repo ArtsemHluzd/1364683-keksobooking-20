@@ -5,10 +5,15 @@
   var form = document.querySelector('.ad-form');
   var mapFilters = document.querySelector('.map__filters');
   var fieldsets = document.querySelectorAll('fieldset');
+  var INITIAL_COORDS_MAINPIN = {
+    y: 375,
+    x: 570
+  };
 
   var diactivateForm = function () {
 
     form.reset();
+
 
     for (var i = 0; i < fieldsets.length; i++) {
       fieldsets[i].classList.add('disabled');
@@ -18,6 +23,7 @@
     }
     window.map.removeAllPins();
     form.classList.add('ad-form--disabled');
+    window.pin.moveMainPin(INITIAL_COORDS_MAINPIN.y, INITIAL_COORDS_MAINPIN.x);
     window.pin.insertAddressValue(window.pin.MAIN_PIN_HEIGHT_HALF, window.pin.MAIN_PIN_HEIGHT_HALF);
   };
 
