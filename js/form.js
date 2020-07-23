@@ -26,13 +26,14 @@
     for (var i = 0; i < fieldsets.length; i++) {
       fieldsets[i].classList.add('disabled');
     }
-    if (window.map.map.classList.contains('map--faded') === false) {
-      window.map.map.classList.add('map--faded');
-    }
+
+    window.map.map.classList.add('map--faded');
+
     window.map.removeAllPins();
     form.classList.add('ad-form--disabled');
+    form.setAttribute('disabled', 'disabled');
 
-    window.pin.moveMainPin(INITIAL_COORDS_MAINPIN.y, INITIAL_COORDS_MAINPIN.x);
+    window.pinn.moveMainPin(INITIAL_COORDS_MAINPIN.y, INITIAL_COORDS_MAINPIN.x);
     window.pin.insertAddressValue(window.pin.MAIN_PIN_HEIGHT_HALF, window.pin.MAIN_PIN_HEIGHT_HALF);
 
     if (window.map.map.querySelector('.map__card')) {
@@ -81,29 +82,30 @@
   });
 
   // rooms.addEventListener('change', function () {
-  //   switch (rooms.value) {
-  //     case '1':
-  //       console.log('test');
-  //       for (var i = 0; i < options.length; i++) {
-  //         if (options[i].value !== '1') {
-  //           options[i].setAttribute('disabled', 'disabled');
-  //         }
+  // rooms.options.forEach(function (it) {
+  // console.log(rooms.options);
+  //   it.removeAttribute('disabled');
+  // })
+  // switch (rooms.value) {
+  //   case '1':
+  //     console.log('test');
+  //     for (var i = 0; i < options.length; i++) {
+  //       if (options[i].value !== '1') {
+  //         options[i].setAttribute('disabled', 'disabled');
   //       }
-  //       break;
-  //     case '2':
-  //       console.log('2');
-  //       for (var j = 0; j < options.length; j++) {
-  //         if (options[j].value !== '2' && options[j].value !== '1') {
-  //           console.log(options[j].value);
-  //           options[j].setAttribute('disabled', 'disabled');
-  //         }
+  //     }
+  //     break;
+  //   case '2':
+  //     console.log('2');
+  //     for (var j = 0; j < options.length; j++) {
+  //       if (options[j].value !== '2' && options[j].value !== '1') {
+  //         console.log(options[j].value);
+  //         options[j].setAttribute('disabled', 'disabled');
   //       }
-  //       break;
-  //   }
+  //     }
+  //     break;
+  // }
 
-    // if (rooms.value === '1') {
-    // } else if (rooms.value === '1')
-  // });
 
   window.form = {
     form: form,

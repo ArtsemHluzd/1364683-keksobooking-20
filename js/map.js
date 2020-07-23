@@ -16,6 +16,9 @@
     for (var i = pins.length - 1; i > 0; i--) {
       pins[1].parentNode.removeChild(pins[1]);
     }
+    if (map.querySelector('.map__card')) {
+      map.querySelector('.map__card').remove();
+    }
   };
 
   var renderAllPins = function () {
@@ -27,9 +30,6 @@
 
   var updatePins = function () {
     removeAllPins();
-    if (map.querySelector('.map__card')) {
-      map.querySelector('.map__card').remove();
-    }
 
 
     filteredPins = filteredByType.concat(filteredByPrice);

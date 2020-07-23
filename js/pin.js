@@ -13,38 +13,43 @@
   var ADS_LENGTH = 5;
   var mapPins = document.querySelector('.map__pins');
 
+  var onClickRenderCard = function () {
+    pin.classList.add('.map__pin--active');
+    if (document.querySelector('.map__card') === null) {
+      window.card.renderCardAd(ads[0]);
+    } else {
+      document.querySelector('.map__card').remove();
+      window.card.renderCardAd(ads[0]);
+    }
+  };
+
   var createPins = function (ads) {
     var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
     var fragment = document.createDocumentFragment();
 
-    for (var i = 0; i < ads.length; i++) {
+    var renderPin = function (ad) {
       if (i < ADS_LENGTH) {
 
         var pin = pinTemplate.cloneNode(true);
         pin.classList.remove('.map__pin--active');
 
-        var left = ads[i].location.x - (MAP_PIN_WIDTH / 2);
-        var topPin = ads[i].location.y - MAP_PIN_HEIGHT;
+        var left = ad.location.x - (MAP_PIN_WIDTH / 2);
+        var topPin = ad.location.y - MAP_PIN_HEIGHT;
         var style = 'left: ' + left + 'px; top: ' + topPin + 'px';
         window.common.changeAttribute(pin, 'style', style);
         var avatar = pin.querySelector('img');
-        var src = ads[i].author.avatar;
-        var alt = ads[i].offer.title;
+        var src = ad.author.avatar;
+        var alt = ad.offer.title;
         window.common.changeAttribute(avatar, 'src', src);
         window.common.changeAttribute(avatar, 'alt', alt);
 
-        pin.addEventListener('click', function () {
-          pin.classList.add('.map__pin--active');
-          if (document.querySelector('.map__card') === null) {
-            window.card.renderCardAd(ads[0]);
-          } else {
-            document.querySelector('.map__card').remove();
-            window.card.renderCardAd(ads[0]);
-          }
-        });
+        pin.addEventListener('click', onClickRenderCard);
 
         fragment.appendChild(pin);
-      }
+    }
+
+    for (var i = 0; i < ads.length; i++) {
+      renderPin(ads[i]);
     }
     mapPins.appendChild(fragment);
   };
@@ -80,11 +85,15 @@
     var onMousemoveMainPin = function (moveEvt) {
       moveEvt.preventDefault();
 
-      if ((moveEvt.pageY - MAIN_PIN_HEIGHT / 2) > MAP_Y_MIN
-        && (moveEvt.pageY - MAP_PIN_HEIGHT / 2) < MAP_Y_MAX) {
-        // ограничение по Y реализовал, а по X не могу
+      // if ((moveEvt.pageY - MAIN_PIN_HEIGHT / 2) > MAP_Y_MIN
+//        && (moveEvt.pageY - MAP_PIN_HEIGHT / 2) < MAP_Y_MAX) {
         // && moveEvt.pageX > 0
         // && moveEvt.pageX < mainPin.parentNode.offsetWidth)
+
+
+
+          console.log(moveEvt);
+
         var shift = {
           y: startCoords.y - moveEvt.clientY,
           x: startCoords.x - moveEvt.clientX
@@ -95,13 +104,25 @@
           x: moveEvt.clientX
         };
 
+        //надо посчитать
+        var MIN_X_PIN = 100;
+        var MAX_X_PIN = 1100;
+
+        if (mainPin.offsetLeft > MAX_X_PIN) {
+          mainPin.style.left = MAX_X_PIN + 'px';
+        }
+
+        if (mainPin.offsetLeft < MIN_X_PIN) {
+          mainPin.style.left = MIN_X_PIN + 'px';
+        }
+
         var top = (mainPin.offsetTop - shift.y);
         var left = (mainPin.offsetLeft - shift.x);
 
         moveMainPin(top, left);
         insertAddressValue(MAIN_PIN_HEIGHT_HALF, MAIN_PIN_HEIGHT);
 
-      }
+    //  }
 
     };
 
@@ -118,11 +139,13 @@
     window.addEventListener('mouseup', onMouseupMainPin);
   });
 
+  window.pinn = {
+    moveMainPin: moveMainPin
+  }
 
   window.pin = {
     createPins: createPins,
     insertAddressValue: insertAddressValue,
-    moveMainPin: moveMainPin,
     MAP_PIN_WIDTH: MAP_PIN_WIDTH,
     MAP_PIN_HEIGHT: MAP_PIN_HEIGHT,
     MAIN_PIN_HEIGHT_HALF: MAIN_PIN_HEIGHT_HALF,

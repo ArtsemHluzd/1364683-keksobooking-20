@@ -48,6 +48,7 @@
     }
 
     card.querySelector('.popup__description').textContent = ad.offer.description;
+
     var firstImg = card.querySelector('.popup__photos').querySelector('.popup__photo');
     window.common.changeAttribute(firstImg, 'src', ad.offer.photos[0]);
     for (var i = 1; i < ad.offer.photos.length - 1; i++) {
