@@ -27,6 +27,11 @@
 
   var updatePins = function () {
     removeAllPins();
+    if (map.querySelector('.map__card')) {
+      map.querySelector('.map__card').remove();
+    }
+
+
     filteredPins = filteredByType.concat(filteredByPrice);
     // console.log(filteredPins);
     // for (var i = 0; i < filteredPins.length; i++) {

@@ -19,8 +19,9 @@
 
     for (var i = 0; i < ads.length; i++) {
       if (i < ADS_LENGTH) {
-        var pin = pinTemplate.cloneNode(true);
 
+        var pin = pinTemplate.cloneNode(true);
+        pin.classList.remove('.map__pin--active');
 
         var left = ads[i].location.x - (MAP_PIN_WIDTH / 2);
         var topPin = ads[i].location.y - MAP_PIN_HEIGHT;
@@ -33,7 +34,11 @@
         window.common.changeAttribute(avatar, 'alt', alt);
 
         pin.addEventListener('click', function () {
+          pin.classList.add('.map__pin--active');
           if (document.querySelector('.map__card') === null) {
+            window.card.renderCardAd(ads[0]);
+          } else {
+            document.querySelector('.map__card').remove();
             window.card.renderCardAd(ads[0]);
           }
         });
@@ -54,9 +59,6 @@
 
     var left = mainPin.offsetLeft + leftTo;
     var top = mainPin.offsetTop + topTo;
-    console.log(mainPin.offsetLeft);
-    console.log(mainPin.offsetTop);
-
     var addressValue = Math.round(left) + ', ' + Math.round(top);
     addressInput.value = addressValue;
   };

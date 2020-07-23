@@ -37,7 +37,7 @@
 
     if (window.map.map.querySelector('.map__card')) {
       window.map.map.querySelector('.map__card').remove();
-    };
+    }
   };
 
   diactivateForm();
@@ -67,8 +67,9 @@
   };
 
   form.addEventListener('submit', function (evt) {
-    window.backend.save(new FormData(form), onSuccessSave, onErrorSave);
     evt.preventDefault();
+    window.backend.save(new FormData(form), onSuccessSave, onErrorSave);
+
   });
 
   timein.addEventListener('change', function () {
