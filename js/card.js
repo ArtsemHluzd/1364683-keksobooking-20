@@ -84,7 +84,8 @@
   };
 
   window.card = {
-    renderCardAd: renderCardAd
+    renderCardAd: renderCardAd,
+    card: card
   };
 
 })();
