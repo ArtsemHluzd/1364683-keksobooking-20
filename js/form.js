@@ -13,7 +13,9 @@
   var formFilter = document.querySelector('.map__filters');
   var timein = document.querySelector('#timein');
   var timeout = document.querySelector('#timeout');
-  var fieldsetTime = document.querySelector('.ad-form__element--time');
+  var rooms = document.querySelector('#room_number');
+  var capacity = document.querySelector('#capacity');
+  var options = capacity.querySelectorAll('option');
 
   var diactivateForm = function () {
 
@@ -73,7 +75,32 @@
   });
 
   timeout.addEventListener('change', function () {
-  timein.value = timeout.value;
+    timein.value = timeout.value;
+  });
+
+  rooms.addEventListener('change', function () {
+    switch (rooms.value) {
+      case '1':
+        console.log('test');
+        for (var i = 0; i < options.length; i++) {
+          if (options[i].value !== '1') {
+            options[i].remove();
+          }
+        }
+        break;
+      case '2':
+        console.log('2');
+        for (var j = 0; j < options.length; j++) {
+          if (options[j].value !== '2' && options[j].value !== '1') {
+            console.log(options[j].value);
+            options[j].remove();
+          }
+        }
+        break;
+    }
+
+    // if (rooms.value === '1') {
+    // } else if (rooms.value === '1')
   });
 
   window.form = {
