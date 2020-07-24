@@ -8,6 +8,8 @@
   var MAP_PIN_HEIGHT = 70;
   var MAP_Y_MIN = 130;
   var MAP_Y_MAX = 630;
+  var MAP_X_MIN = 0;
+  var MAP_X_MAX = 1200;
   var mainPin = document.querySelector('.map__pin--main');
   var addressInput = document.querySelector('#address');
   var ADS_LENGTH = 5;
@@ -86,15 +88,6 @@
     var onMousemoveMainPin = function (moveEvt) {
       moveEvt.preventDefault();
 
-      // if ((moveEvt.pageY - MAIN_PIN_HEIGHT / 2) > MAP_Y_MIN
-      //        && (moveEvt.pageY - MAP_PIN_HEIGHT / 2) < MAP_Y_MAX) {
-      // && moveEvt.pageX > 0
-      // && moveEvt.pageX < mainPin.parentNode.offsetWidth)
-
-
-
-      console.log(moveEvt);
-
       var shift = {
         y: startCoords.y - moveEvt.clientY,
         x: startCoords.x - moveEvt.clientX
@@ -105,16 +98,20 @@
         x: moveEvt.clientX
       };
 
-      //надо посчитать
-      var MIN_X_PIN = 100;
-      var MAX_X_PIN = 1100;
-
-      if (mainPin.offsetLeft > MAX_X_PIN) {
-        mainPin.style.left = MAX_X_PIN + 'px';
+      if (mainPin.offsetLeft > (MAP_X_MAX - MAIN_PIN_HEIGHT / 2)) {
+        mainPin.style.left = (MAP_X_MAX - MAIN_PIN_HEIGHT / 2) + 'px';
       }
 
-      if (mainPin.offsetLeft < MIN_X_PIN) {
-        mainPin.style.left = MIN_X_PIN + 'px';
+      if (mainPin.offsetLeft < MAP_X_MIN - (MAIN_PIN_HEIGHT / 2)) {
+        mainPin.style.left = (MAP_X_MIN - (MAIN_PIN_HEIGHT / 2)) + 'px';
+      }
+
+      if (mainPin.offsetTop < MAP_Y_MIN) {
+        mainPin.style.top = MAP_Y_MIN + 'px';
+      }
+
+      if (mainPin.offsetTop > MAP_Y_MAX + MAIN_PIN_HEIGHT - 20) {
+        mainPin.style.top = (MAP_Y_MAX + MAIN_PIN_HEIGHT - 20) + 'px';
       }
 
       var top = (mainPin.offsetTop - shift.y);
