@@ -33,7 +33,7 @@
     form.classList.add('ad-form--disabled');
     form.setAttribute('disabled', 'disabled');
 
-    window.pinn.moveMainPin(INITIAL_COORDS_MAINPIN.y, INITIAL_COORDS_MAINPIN.x);
+    window.pin.moveMainPin(INITIAL_COORDS_MAINPIN.y, INITIAL_COORDS_MAINPIN.x);
     window.pin.insertAddressValue(window.pin.MAIN_PIN_HEIGHT_HALF, window.pin.MAIN_PIN_HEIGHT_HALF);
 
     if (window.map.map.querySelector('.map__card')) {

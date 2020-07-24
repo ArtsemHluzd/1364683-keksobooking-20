@@ -24,7 +24,7 @@
   };
 
   var createPins = function (ads) {
-    var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+    var pinTemplate = document.querySelector('#pinTemplate').content.querySelector('.map__pin');
     var fragment = document.createDocumentFragment();
 
     var renderPin = function (ad) {
@@ -46,7 +46,8 @@
         pin.addEventListener('click', onClickRenderCard);
 
         fragment.appendChild(pin);
-    }
+      }
+    };
 
     for (var i = 0; i < ads.length; i++) {
       renderPin(ads[i]);
@@ -86,43 +87,43 @@
       moveEvt.preventDefault();
 
       // if ((moveEvt.pageY - MAIN_PIN_HEIGHT / 2) > MAP_Y_MIN
-//        && (moveEvt.pageY - MAP_PIN_HEIGHT / 2) < MAP_Y_MAX) {
-        // && moveEvt.pageX > 0
-        // && moveEvt.pageX < mainPin.parentNode.offsetWidth)
+      //        && (moveEvt.pageY - MAP_PIN_HEIGHT / 2) < MAP_Y_MAX) {
+      // && moveEvt.pageX > 0
+      // && moveEvt.pageX < mainPin.parentNode.offsetWidth)
 
 
 
-          console.log(moveEvt);
+      console.log(moveEvt);
 
-        var shift = {
-          y: startCoords.y - moveEvt.clientY,
-          x: startCoords.x - moveEvt.clientX
-        };
+      var shift = {
+        y: startCoords.y - moveEvt.clientY,
+        x: startCoords.x - moveEvt.clientX
+      };
 
-        startCoords = {
-          y: moveEvt.clientY,
-          x: moveEvt.clientX
-        };
+      startCoords = {
+        y: moveEvt.clientY,
+        x: moveEvt.clientX
+      };
 
-        //надо посчитать
-        var MIN_X_PIN = 100;
-        var MAX_X_PIN = 1100;
+      //надо посчитать
+      var MIN_X_PIN = 100;
+      var MAX_X_PIN = 1100;
 
-        if (mainPin.offsetLeft > MAX_X_PIN) {
-          mainPin.style.left = MAX_X_PIN + 'px';
-        }
+      if (mainPin.offsetLeft > MAX_X_PIN) {
+        mainPin.style.left = MAX_X_PIN + 'px';
+      }
 
-        if (mainPin.offsetLeft < MIN_X_PIN) {
-          mainPin.style.left = MIN_X_PIN + 'px';
-        }
+      if (mainPin.offsetLeft < MIN_X_PIN) {
+        mainPin.style.left = MIN_X_PIN + 'px';
+      }
 
-        var top = (mainPin.offsetTop - shift.y);
-        var left = (mainPin.offsetLeft - shift.x);
+      var top = (mainPin.offsetTop - shift.y);
+      var left = (mainPin.offsetLeft - shift.x);
 
-        moveMainPin(top, left);
-        insertAddressValue(MAIN_PIN_HEIGHT_HALF, MAIN_PIN_HEIGHT);
+      moveMainPin(top, left);
+      insertAddressValue(MAIN_PIN_HEIGHT_HALF, MAIN_PIN_HEIGHT);
 
-    //  }
+      //  }
 
     };
 
@@ -139,13 +140,10 @@
     window.addEventListener('mouseup', onMouseupMainPin);
   });
 
-  window.pinn = {
-    moveMainPin: moveMainPin
-  }
-
   window.pin = {
     createPins: createPins,
     insertAddressValue: insertAddressValue,
+    moveMainPin: moveMainPin,
     MAP_PIN_WIDTH: MAP_PIN_WIDTH,
     MAP_PIN_HEIGHT: MAP_PIN_HEIGHT,
     MAIN_PIN_HEIGHT_HALF: MAIN_PIN_HEIGHT_HALF,
