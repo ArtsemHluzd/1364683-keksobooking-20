@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-
   var getRandomInt = function (min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -21,7 +20,6 @@
     return randomArr;
   };
 
-
   var changeAttribute = function (element, attribute, value) {
     element.removeAttribute(attribute);
     element.setAttribute(attribute, value);
@@ -33,6 +31,4 @@
     getRandomElement: getRandomElement,
     changeAttribute: changeAttribute
   };
-
-
 })();
