@@ -9,7 +9,7 @@ var SAVE_URL = 'https://javascript.pages.academy/keksobooking';
     xhr.responseType = 'json';
     xhr.addEventListener('load', function () {
       if (xhr.status === 200) {
-        onSuccess(xhr);
+        onSuccess(xhr.response);
       } else {
         onError('Что-то пошло не так');
       }

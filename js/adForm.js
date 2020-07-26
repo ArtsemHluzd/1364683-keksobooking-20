@@ -1,6 +1,6 @@
 'use strict';
 
-var minPriceMap = {
+var MinPriceMap = {
   BUNGALO: 0,
   FLAT: 1000,
   HOUSE: 5000,
@@ -47,7 +47,29 @@ var minPriceMap = {
   // выставляется при перемещении метки .map__pin--main по карте. Подробности
   // заполнения поля адреса, описаны вместе с поведением метки.
   var setFormAddress = function(x, y) {
-    formAddress.value = x + ', ' + y;
+    formAddress.value = Math.round(x) + ', ' + Math.round(y);
+  };
+
+  var getCustomValidationMessage = function(roomNumber, capacity) {
+    var message = '';
+
+    if (roomNumber === 1 && !(capacity > 0 && capacity <= 1)) {
+      message = '1 комната — «для 1 гостя»';
+    }
+
+    if (roomNumber === 2 && !(capacity > 0 && capacity <= 2)) {
+      message = '2 комнаты — «для 2 гостей» или «для 1 гостя»';
+    }
+
+    if (roomNumber === 3 && !(capacity > 0 && capacity <= 3)) {
+      message = '3 комнаты — «для 3 гостей», «для 2 гостей» или «для 1 гостя»';
+    }
+
+    if (roomNumber === 100 && capacity !== 0) {
+      message = '100 комнат — «не для гостей»';
+    }
+
+    return message;
   };
 
   // 2.5. При успешной отправке формы страница, не перезагружаясь, переходит в изначальное неактивное состояние, а также:
@@ -57,9 +79,6 @@ var minPriceMap = {
   // значение поля адреса корректируется соответственно положению метки.
   var onSuccessSave = function () {
     window.page.deactivatePage();
-    window.adForm.resetForm();
-    window.filtersForm.resetForm();
-    window.mainPin.resetPin();
   };
 
   var onErrorSave = function () {};
@@ -79,9 +98,6 @@ var minPriceMap = {
   // значение поля адреса корректируется соответственно положению метки;
   formResetElement.addEventListener('click', function (evt) {
     window.page.deactivatePage();
-    window.adForm.resetForm();
-    window.filtersForm.resetForm();
-    window.mainPin.resetPin();
   });
 
   // 3.3. Поле «Тип жилья» влияет на минимальное значение поля «Цена за ночь»:
@@ -92,7 +108,7 @@ var minPriceMap = {
   //
   // > Обратите внимание: вместе с минимальным значением цены нужно изменять и плейсхолдер.
   formType.addEventListener('change', function(evt) {
-    var min = minPriceMap[evt.target.value.toUpperCase()];
+    var min = MinPriceMap[evt.target.value.toUpperCase()];
     formPrice.setAttribute('min', min);
     formPrice.setAttribute('placeholder', min);
   });
@@ -119,7 +135,19 @@ var minPriceMap = {
   // > значений поля «Количество мест»: удаление из разметки соответствующих
   // > элементов option, добавление элементам option состояния disabled или
   // > другие способы ограничения, например, с помощью метода setCustomValidity.
-  formRoomNumber.addEventListener('change', function(evt) {});
+  formRoomNumber.addEventListener('change', function(evt) {
+    var message = getCustomValidationMessage(Number(evt.target.value), Number(formCapacity.value));
+    formCapacity.setCustomValidity(message);
+  });
+
+  formCapacity.addEventListener('change', function(evt) {
+    var message = getCustomValidationMessage(Number(formRoomNumber.value), Number(evt.target.value));
+    formCapacity.setCustomValidity(message);
+  });
+
+  formCapacity.setCustomValidity(
+    getCustomValidationMessage(Number(formRoomNumber.value), formCapacity.value)
+  );
 
   window.adForm = {
     activateForm: activateForm,
