@@ -7,33 +7,13 @@
     HOUSE: 'Дом',
     PALACE: 'Дворец',
   };
-  var ads = [];
   var mapElement = document.querySelector('.map');
-  var mapPinsElement = document.querySelector('.map__pins');
-  var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
   var removeCard = function () {
     var card = document.querySelector('.map__card');
+
     if (card) {
       card.remove();
-    }
-  };
-
-  var removePins = function () {
-    var pins = mapPinsElement.querySelectorAll('.map__pin');
-    for(var i = 0; i < pins.length; i++) {
-      if (pins[i].classList.contains('map__pin--main')) {
-        continue;
-      }
-
-      pins[i].remove();
-    }
-  };
-
-  var deactivatePins = function () {
-    var pins = document.querySelectorAll('.map__pin--active');
-    for(var i = 0; i < pins.length; i++) {
-      pins[i].classList.remove('map__pin--active');
     }
   };
 
@@ -54,7 +34,10 @@
     var cardPhotosElement = card.querySelector('.popup__photos');
     var cardPhotoElement = cardPhotosElement.querySelector('.popup__photo');
 
-
+    // Если данных для заполнения не хватает, соответствующий блок в карточке
+    // скрывается. Например, если в объявлении не указано никаких удобств, нужно
+    // скрыть блок .popup__features. При отсутствии полей не должно возникать
+    // ошибок.
     cardTitleElement.textContent = ad.offer.title;
     cardAddressElement.textContent = ad.offer.address;
     cardPriceElement.textContent = ad.offer.price + '₽/ночь';
@@ -89,7 +72,7 @@
     }
 
     var fragment = document.createDocumentFragment();
-    for(var i = 0; i < ad.offer.photos.length; i++) {
+    for (var i = 0; i < ad.offer.photos.length; i++) {
       var img = cardPhotoElement.cloneNode(true);
       img.setAttribute('src', ad.offer.photos[i]);
       fragment.appendChild(img);
@@ -97,50 +80,20 @@
     cardPhotosElement.appendChild(fragment);
     cardPhotoElement.remove();
 
+    // 5.6. Открытую карточку с подробной информацией можно закрыть или нажатием
+    // на иконку крестика в правом верхнем углу объявления или нажатием на клавишу
+    // Esc на клавиатуре.
+    cardCloseElement.addEventListener('click', function () {
+      card.remove();
+
+      window.pin.deactivatePins();
+    });
+
     mapElement.appendChild(card);
   };
 
-  var createPin = function (ad) {
-    var pin = pinTemplate.cloneNode(true);
-    var pinAvatar = pin.querySelector('img');
-
-    pin.style.left = ad.location.x + 'px';
-    pin.style.top = ad.location.y + 'px';
-
-    pinAvatar.setAttribute('src', ad.author.avatar);
-    pinAvatar.setAttribute('alt', ad.offer.title);
-
-    pin.addEventListener('click', function() {
-      deactivatePins();
-      removeCard();
-      renderCard(ad);
-      pin.classList.add('map__pin--active');
-    });
-
-    return pin;
-  };
-
-  var renderPins = function (ads) {
-    var fragment = document.createDocumentFragment();
-
-    for (var i = 0; i < ads.length; i ++) {
-      if (ads[i].offer) {
-        var pin = createPin(ads[i]);
-        fragment.appendChild(pin);
-      }
-    }
-
-    mapPinsElement.appendChild(fragment);
-  };
-
-  var onLoad = function (response) {
-    ads = response;
-    renderPins(ads);
-  }
-
-  window.ads = {
-    onLoad: onLoad,
-    removePins: removePins,
+  window.card = {
+    renderCard: renderCard,
     removeCard: removeCard,
   };
 })();

@@ -1,9 +1,9 @@
 'use strict';
 
-var LOAD_URL = 'https://javascript.pages.academy/keksobooking/data';
-var SAVE_URL = 'https://javascript.pages.academy/keksobooking';
-
 (function () {
+  var LOAD_URL = 'https://javascript.pages.academy/keksobooking/data';
+  var SAVE_URL = 'https://javascript.pages.academy/keksobooking';
+
   var load = function (onSuccess, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
@@ -34,6 +34,6 @@ var SAVE_URL = 'https://javascript.pages.academy/keksobooking';
 
   window.backend = {
     load: load,
-    save: save
+    save: save,
   };
 })();

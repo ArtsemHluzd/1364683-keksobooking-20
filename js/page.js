@@ -1,62 +1,43 @@
 'use strict';
 
 (function () {
-  var pageIsActive = false;
+  var isActive = true;
 
-  var activatePage = function() {
-    if (pageIsActive === false) {
-      window.map.activateMap();
+  var activate = function () {
+    if (isActive === true) {
+      return;
+    }
 
-      window.adForm.activateForm();
-      window.adForm.enableFormFieldSets();
-      window.adForm.setFormAddress(
-        window.mainPin.INITIAL_X + window.mainPin.PIN_WIDTH / 2,
-        window.mainPin.INITIAL_Y + window.mainPin.PIN_HEIGHT
-      );
+    isActive = true;
 
-      window.backend.load(
-        function (response) {
-          window.ads.onLoad(response)
-
-          window.filtersForm.enableFiltersFormFieldSets();
-          window.filtersForm.enableFiltersFormSelects();
+    window.adForm.activate();
+    window.map.activate();
+    window.backend.load(
+        function onLoadSuccess(response) {
+          window.filtersForm.activate();
+          window.pin.onLoad(response);
         },
-        function () {}
-      );
-
-      pageIsActive = true;
-    }
+        function onLoadError() {}
+    );
   };
 
-  var deactivatePage = function() {
-    if (pageIsActive === true) {
-      window.map.deactivateMap();
-
-      window.adForm.deactivateForm();
-      window.adForm.disableFormFieldSets();
-      window.adForm.resetForm();
-      window.adForm.setFormAddress(
-        window.mainPin.INITIAL_X + window.mainPin.PIN_WIDTH / 2,
-        window.mainPin.INITIAL_Y + window.mainPin.PIN_WIDTH / 2
-      );
-
-      window.filtersForm.disableFiltersFormFieldSets();
-      window.filtersForm.disableFiltersFormSelects();
-      window.filtersForm.resetForm();
-
-      window.ads.removeCard();
-      window.ads.removePins();
-
-      window.mainPin.resetPin();
-
-      pageIsActive = false;
+  var deactivate = function () {
+    if (isActive === false) {
+      return;
     }
-  };
 
-  deactivatePage();
+    isActive = false;
+
+    window.adForm.deactivate();
+    window.card.removeCard();
+    window.filtersForm.deactivate();
+    window.mainPin.resetPin();
+    window.map.deactivate();
+    window.pin.removePins();
+  };
 
   window.page = {
-    activatePage: activatePage,
-    deactivatePage: deactivatePage,
+    activate: activate,
+    deactivate: deactivate,
   };
 })();
