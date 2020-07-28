@@ -105,14 +105,25 @@
     cardPhotosElement.appendChild(fragment);
     cardPhotoElement.remove();
 
-    var onKeydownCloseCard = function () {
+    var onClickCloseCard = function () {
       card.remove();
       window.pin.deactivatePins();
 
-      cardCloseElement.removeEventListener('click', onKeydownCloseCard);
+      cardCloseElement.removeEventListener('click', onClickCloseCard);
       window.removeEventListener('keydown', onKeydownCloseCard);
     };
-    cardCloseElement.addEventListener('click', onKeydownCloseCard);
+
+    var onKeydownCloseCard = function (evt) {
+      if (evt.key === "Escape") {
+        card.remove();
+        window.pin.deactivatePins();
+
+        cardCloseElement.removeEventListener('click', onClickCloseCard);
+        window.removeEventListener('keydown', onKeydownCloseCard);
+      }
+    };
+
+    cardCloseElement.addEventListener('click', onClickCloseCard);
     window.addEventListener('keydown', onKeydownCloseCard);
 
     mapElement.appendChild(card);
