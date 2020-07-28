@@ -45,7 +45,7 @@
   };
 
   var guestsFilter = function (guests, offer) {
-    return guests === 'any' || guests === offer.guests;
+    return guests === 'any' || Number(guests) === offer.guests;
   };
 
   var priceFilter = function (price, offer) {
