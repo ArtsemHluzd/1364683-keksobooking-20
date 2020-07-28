@@ -30,8 +30,8 @@
     var pin = pinTemplate.cloneNode(true);
     var pinAvatar = pin.querySelector('img');
 
-    pin.style.left = ad.location.x + 'px';
-    pin.style.top = ad.location.y + 'px';
+    pin.style.left = ad.location.x - window.mainPin.PIN_WIDTH / 2 + 'px';
+    pin.style.top = ad.location.y - window.mainPin.PIN_HEIGHT + 'px';
 
     pinAvatar.setAttribute('src', ad.author.avatar);
     pinAvatar.setAttribute('alt', ad.offer.title);
