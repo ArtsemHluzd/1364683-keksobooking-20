@@ -144,7 +144,7 @@
   };
 
   window.card = {
-    renderCard: renderCard,
-    removeCard: removeCard,
+    render: renderCard,
+    remove: removeCard,
   };
 })();
