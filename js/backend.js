@@ -11,7 +11,7 @@
       if (xhr.status === 200) {
         onSuccess(xhr.response);
       } else {
-        onError('Что-то пошло не так');
+        onError();
       }
     });
     xhr.open('GET', LOAD_URL);

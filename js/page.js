@@ -17,7 +17,9 @@
           window.filtersForm.activate();
           window.pin.onLoad(response);
         },
-        function onLoadError() {}
+        function onLoadError(resopnse) {
+          alert('Что-то пошло не так. Обратитесь в техническую поддержку');
+        }
     );
   };
 
