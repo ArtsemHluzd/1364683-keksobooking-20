@@ -120,7 +120,7 @@
     };
 
     var onKeydownCloseCard = function (evt) {
-      if (evt.key === "Escape") {
+      if (evt.key === 'Escape') {
         card.remove();
         window.pin.deactivatePins();
 
