@@ -38,6 +38,8 @@
     window.pin.removePins();
   };
 
+  deactivate();
+
   window.page = {
     activate: activate,
     deactivate: deactivate,
