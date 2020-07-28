@@ -10,6 +10,8 @@
   var formElement = document.querySelector('.ad-form');
   var formFieldSetElements = formElement.querySelectorAll('fieldset');
   var formResetElement = document.querySelector('.ad-form__reset');
+  var formAvatarUpload = document.querySelector('#avatar');
+  var formAvatarPreview = document.querySelector('.ad-form-header__preview');
   var formAddress = document.querySelector('#address');
   var formType = document.querySelector('#type');
   var formPrice = document.querySelector('#price');
@@ -20,6 +22,22 @@
   var formPhotoConteiner = document.querySelector('.ad-form__photo-container');
   var formPhotos = document.querySelector('.ad-form__photo');
   var formUpload = document.querySelector('#images');
+
+  // очищение аватара при ресете формы
+  formAvatarUpload.addEventListener('change', function () {
+    var file = formAvatarUpload.files[0];
+    var reader = new FileReader();
+    var img = formAvatarPreview.querySelector('img');
+    reader.addEventListener('load', function () {
+      img.src = reader.result;
+    });
+    reader.readAsDataURL(file);
+  });
+
+
+
+
+
 
 
   // очищать файлы после отправки формы
