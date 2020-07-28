@@ -1,38 +1,34 @@
 'use strict';
 
 (function () {
-
-  var getRandomInt = function (min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  };
-
-  var getRandomElement = function (arr) {
-    var random = getRandomInt(0, arr.length - 1);
-    return arr[random];
-  };
-
-  var getRandomArr = function (arr) {
-    var randomArr = [];
-    for (var i = 0; i < getRandomInt(0, arr.length - 1); i++) {
-      randomArr.push(arr[i]);
+  var disableElements = function (elements) {
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].setAttribute('disabled', true);
     }
-    return randomArr;
   };
 
+  var enableElements = function (elements) {
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].removeAttribute('disabled');
+    }
+  };
 
-  var changeAttribute = function (element, attribute, value) {
-    element.removeAttribute(attribute);
-    element.setAttribute(attribute, value);
+  var debounce = function (func, wait) {
+    var timeout;
+
+    return function () {
+      var params = arguments;
+      clearTimeout(timeout);
+
+      timeout = setTimeout(function () {
+        func.apply(null, params);
+      }, wait);
+    };
   };
 
   window.common = {
-    getRandomInt: getRandomInt,
-    getRandomArr: getRandomArr,
-    getRandomElement: getRandomElement,
-    changeAttribute: changeAttribute
+    disableElements: disableElements,
+    enableElements: enableElements,
+    debounce: debounce,
   };
-
-
 })();
