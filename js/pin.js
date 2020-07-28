@@ -70,7 +70,7 @@
   };
 
   var filterPins = function (filter) {
-    var filtered = data.filter(function (it) {
+    var filteredPins = data.filter(function (it) {
       return (
         window.filtersForm.typeFilter(filter.type, it.offer) &&
         window.filtersForm.roomsFilter(filter.rooms, it.offer) &&
@@ -82,7 +82,7 @@
 
     removePins();
     window.card.removeCard();
-    renderPins(filtered);
+    renderPins(filteredPins);
   };
 
   window.pin = {
