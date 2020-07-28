@@ -28,6 +28,7 @@
 
   var resetForm = function () {
     formElement.reset();
+    formPrice.setAttribute('placeholder', 1000);
   };
 
   var disableFormFieldSets = function () {
