@@ -34,9 +34,9 @@
     var cardPhotosElement = card.querySelector('.popup__photos');
     var cardPhotoElement = cardPhotosElement.querySelector('.popup__photo');
 
-    var checkDataIs = function (element, data, value = data) {
+    var checkDataIs = function (element, data) {
       if (data) {
-        element.textContent = value;
+        element.textContent = data;
       } else {
         element.remove();
       }
@@ -46,26 +46,32 @@
     checkDataIs(cardAddressElement, ad.offer.address);
     checkDataIs(cardPriceElement, ad.offer.price + '₽/ночь');
     checkDataIs(cardTypeElement, TypeMap[ad.offer.type.toUpperCase()]);
-
-    checkDataIs(
-      cardCapacityElement,
-      ad.offer.rooms,
-      ad.offer.rooms + ' комнаты для ' + ad.offer.guests + ' гостей');
-    checkDataIs(
-      cardCapacityElement,
-      ad.offer.guests,
-      ad.offer.rooms + ' комнаты для ' + ad.offer.guests + ' гостей');
-
-    checkDataIs(
-      cardTimeElement,
-      ad.offer.checkin,
-      'Заезд после ' + ad.offer.checkin + ', выезд до ' + ad.offer.checkout);
-    checkDataIs(
-      cardTimeElement,
-      ad.offer.checkout,
-      'Заезд после ' + ad.offer.checkin + ', выезд до ' + ad.offer.checkout);
-
     checkDataIs(cardDescriptionElement, ad.offer.description);
+
+    if (ad.offer.rooms) {
+      cardCapacityElement.textContent = ad.offer.rooms + ' комнаты для ' + ad.offer.guests + ' гостей';
+    } else {
+      cardCapacityElement.remove();
+    }
+
+    if (ad.offer.guests) {
+      cardCapacityElement.textContent = ad.offer.rooms + ' комнаты для ' + ad.offer.guests + ' гостей';
+    } else {
+      cardCapacityElement.remove();
+    }
+
+    if (ad.offer.checkin) {
+      cardTimeElement.textContent = 'Заезд после ' + ad.offer.checkin + ', выезд до ' + ad.offer.checkout;
+    } else {
+      cardTimeElement.remove();
+    }
+
+    if (ad.offer.checkout) {
+      cardTimeElement.textContent = 'Заезд после ' + ad.offer.checkin + ', выезд до ' + ad.offer.checkout;
+    } else {
+      cardTimeElement.remove();
+    }
+
     if (ad.author.avatar) {
       cardAvatarElement.setAttribute('src', ad.author.avatar);
     } else {
