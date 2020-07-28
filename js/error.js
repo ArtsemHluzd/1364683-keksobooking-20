@@ -13,16 +13,25 @@
     var error = errorTemplate.cloneNode(true);
     var errorButtonElement = error.querySelector('.error__button');
 
-    var onOutsideClick = function () {
+    var onOutsideClickCloseError = function () {
       error.remove();
-      document.removeEventListener('click', onOutsideClick);
+      document.removeEventListener('click', onOutsideClickCloseError);
+      document.removeEventListener('keydown', onKeydownCloseError);
+      errorButtonElement.removeEventListener('click', onOutsideClickCloseError);
     };
 
-    errorButtonElement.addEventListener('click', function () {
-      error.remove();
-    });
+    var onKeydownCloseError = function (evt) {
+      if (evt.key === 'Escape') {
+        error.remove();
+        document.removeEventListener('click', onOutsideClickCloseError);
+        document.removeEventListener('keydown', onKeydownCloseError);
+        errorButtonElement.removeEventListener('click', onOutsideClickCloseError);
+      }
+    };
 
-    document.addEventListener('click', onOutsideClick);
+    errorButtonElement.addEventListener('click', onOutsideClickCloseError);
+    document.addEventListener('click', onOutsideClickCloseError);
+    document.addEventListener('keydown', onKeydownCloseError);
 
     main.appendChild(error);
   };
