@@ -38,14 +38,44 @@
     // скрывается. Например, если в объявлении не указано никаких удобств, нужно
     // скрыть блок .popup__features. При отсутствии полей не должно возникать
     // ошибок.
-    cardTitleElement.textContent = ad.offer.title;
-    cardAddressElement.textContent = ad.offer.address;
-    cardPriceElement.textContent = ad.offer.price + '₽/ночь';
-    cardTypeElement.textContent = TypeMap[ad.offer.type.toUpperCase()];
-    cardCapacityElement.textContent = ad.offer.rooms + ' комнаты для ' + ad.offer.guests + ' гостей';
-    cardTimeElement.textContent = 'Заезд после ' + ad.offer.checkin + ', выезд до ' + ad.offer.checkout;
-    cardDescriptionElement.textContent = ad.offer.description;
-    cardAvatarElement.setAttribute('src', ad.author.avatar);
+
+    var checkDataIs = function (element, data, value = data) {
+      if (data) {
+        element.textContent = value;
+      } else {
+        element.remove();
+      }
+    };
+
+    checkDataIs(cardTitleElement, ad.offer.title);
+    checkDataIs(cardAddressElement, ad.offer.address);
+    checkDataIs(cardPriceElement, ad.offer.price + '₽/ночь');
+    checkDataIs(cardTypeElement, TypeMap[ad.offer.type.toUpperCase()]);
+
+    checkDataIs(
+      cardCapacityElement,
+      ad.offer.rooms,
+      ad.offer.rooms + ' комнаты для ' + ad.offer.guests + ' гостей');
+    checkDataIs(
+      cardCapacityElement,
+      ad.offer.guests,
+      ad.offer.rooms + ' комнаты для ' + ad.offer.guests + ' гостей');
+
+    checkDataIs(
+      cardTimeElement,
+      ad.offer.checkin,
+      'Заезд после ' + ad.offer.checkin + ', выезд до ' + ad.offer.checkout);
+    checkDataIs(
+      cardTimeElement,
+      ad.offer.checkout,
+      'Заезд после ' + ad.offer.checkin + ', выезд до ' + ad.offer.checkout);
+
+    checkDataIs(cardDescriptionElement, ad.offer.description);
+    if (ad.author.avatar) {
+      cardAvatarElement.setAttribute('src', ad.author.avatar);
+    } else {
+      cardAvatarElement.remove();
+    }
 
     if (!ad.offer.features.includes('wifi')) {
       cardFeaturesElement.querySelector('.popup__feature--wifi').remove();
