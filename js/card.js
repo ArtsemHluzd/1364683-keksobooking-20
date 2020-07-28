@@ -78,38 +78,46 @@
       cardAvatarElement.remove();
     }
 
-    if (!ad.offer.features.includes('wifi')) {
-      cardFeaturesElement.querySelector('.popup__feature--wifi').remove();
+    if (ad.offer.features) {
+      if (!ad.offer.features.includes('wifi')) {
+        cardFeaturesElement.querySelector('.popup__feature--wifi').remove();
+      }
+
+      if (!ad.offer.features.includes('dishwasher')) {
+        cardFeaturesElement.querySelector('.popup__feature--dishwasher').remove();
+      }
+
+      if (!ad.offer.features.includes('parking')) {
+        cardFeaturesElement.querySelector('.popup__feature--parking').remove();
+      }
+
+      if (!ad.offer.features.includes('washer')) {
+        cardFeaturesElement.querySelector('.popup__feature--washer').remove();
+      }
+
+      if (!ad.offer.features.includes('elevator')) {
+        cardFeaturesElement.querySelector('.popup__feature--elevator').remove();
+      }
+
+      if (!ad.offer.features.includes('conditioner')) {
+        cardFeaturesElement.querySelector('.popup__feature--conditioner').remove();
+      }
+    } else {
+      cardFeaturesElement.remove();
     }
 
-    if (!ad.offer.features.includes('dishwasher')) {
-      cardFeaturesElement.querySelector('.popup__feature--dishwasher').remove();
+    if (ad.offer.photos) {
+      var fragment = document.createDocumentFragment();
+      for (var i = 0; i < ad.offer.photos.length; i++) {
+        var img = cardPhotoElement.cloneNode(true);
+        img.setAttribute('src', ad.offer.photos[i]);
+        fragment.appendChild(img);
+      }
+      cardPhotosElement.appendChild(fragment);
+      cardPhotoElement.remove();
+    } else {
+      cardPhotoElement.remove();
     }
-
-    if (!ad.offer.features.includes('parking')) {
-      cardFeaturesElement.querySelector('.popup__feature--parking').remove();
-    }
-
-    if (!ad.offer.features.includes('washer')) {
-      cardFeaturesElement.querySelector('.popup__feature--washer').remove();
-    }
-
-    if (!ad.offer.features.includes('elevator')) {
-      cardFeaturesElement.querySelector('.popup__feature--elevator').remove();
-    }
-
-    if (!ad.offer.features.includes('conditioner')) {
-      cardFeaturesElement.querySelector('.popup__feature--conditioner').remove();
-    }
-
-    var fragment = document.createDocumentFragment();
-    for (var i = 0; i < ad.offer.photos.length; i++) {
-      var img = cardPhotoElement.cloneNode(true);
-      img.setAttribute('src', ad.offer.photos[i]);
-      fragment.appendChild(img);
-    }
-    cardPhotosElement.appendChild(fragment);
-    cardPhotoElement.remove();
 
     var onClickCloseCard = function () {
       card.remove();
