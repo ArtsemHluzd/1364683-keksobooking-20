@@ -34,11 +34,6 @@
     var cardPhotosElement = card.querySelector('.popup__photos');
     var cardPhotoElement = cardPhotosElement.querySelector('.popup__photo');
 
-    // Если данных для заполнения не хватает, соответствующий блок в карточке
-    // скрывается. Например, если в объявлении не указано никаких удобств, нужно
-    // скрыть блок .popup__features. При отсутствии полей не должно возникать
-    // ошибок.
-
     var checkDataIs = function (element, data, value = data) {
       if (data) {
         element.textContent = value;
@@ -110,14 +105,15 @@
     cardPhotosElement.appendChild(fragment);
     cardPhotoElement.remove();
 
-    // 5.6. Открытую карточку с подробной информацией можно закрыть или нажатием
-    // на иконку крестика в правом верхнем углу объявления или нажатием на клавишу
-    // Esc на клавиатуре.
-    cardCloseElement.addEventListener('click', function () {
+    var onKeydownCloseCard = function () {
       card.remove();
-
       window.pin.deactivatePins();
-    });
+
+      cardCloseElement.removeEventListener('click', onKeydownCloseCard);
+      window.removeEventListener('keydown', onKeydownCloseCard);
+    };
+    cardCloseElement.addEventListener('click', onKeydownCloseCard);
+    window.addEventListener('keydown', onKeydownCloseCard);
 
     mapElement.appendChild(card);
   };
