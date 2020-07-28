@@ -37,7 +37,7 @@
         y: moveEvt.clientY,
       };
 
-      if (mainPinElement.offsetLeft < PIN_MIN_X) {
+      if (mainPinElement.offsetLeft < PIN_MIN_X - PIN_WIDTH / 2) {
         mainPinElement.style.left = PIN_MIN_X - PIN_WIDTH / 2 + 'px';
       }
 
