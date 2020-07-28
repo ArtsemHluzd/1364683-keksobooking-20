@@ -4,6 +4,7 @@
   var filtersFormElement = document.querySelector('.map__filters');
   var filtersFormFieldSetElements = filtersFormElement.querySelectorAll('fieldset');
   var filtersFormSelectElements = filtersFormElement.querySelectorAll('select');
+  var SELECT_DEFAULT_VALUE = 'any';
 
   var resetForm = function () {
     filtersFormElement.reset();
@@ -37,15 +38,15 @@
   };
 
   var typeFilter = function (type, offer) {
-    return type === 'any' || type === offer.type;
+    return type === SELECT_DEFAULT_VALUE || type === offer.type;
   };
 
   var roomsFilter = function (rooms, offer) {
-    return rooms === 'any' || Number(rooms) === offer.rooms;
+    return rooms === SELECT_DEFAULT_VALUE || Number(rooms) === offer.rooms;
   };
 
   var guestsFilter = function (guests, offer) {
-    return guests === 'any' || Number(guests) === offer.guests;
+    return guests === SELECT_DEFAULT_VALUE || Number(guests) === offer.guests;
   };
 
   var priceFilter = function (price, offer) {

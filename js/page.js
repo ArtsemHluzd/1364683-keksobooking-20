@@ -2,6 +2,7 @@
 
 (function () {
   var isActive = true;
+  var mapPin = document.querySelector('.map__pins');
 
   var activate = function () {
     if (isActive === true) {
@@ -17,8 +18,14 @@
           window.filtersForm.activate();
           window.pin.onLoad(response);
         },
-        function onLoadError(resopnse) {
-          alert('Что-то пошло не так. Обратитесь в техническую поддержку');
+        function onLoadError() {
+          // нужно как-то обработать ошибку
+
+          // var div = document.createElement('div');
+          // div.textContent = 'Что-то пошло не так. Обратитесь в техническую поддержку';
+          // div.style.color = 'red';
+          // console.log(div);
+          // mapPin.appendChild(div);
         }
     );
   };
