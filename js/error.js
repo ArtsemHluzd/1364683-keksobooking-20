@@ -32,6 +32,6 @@
   };
 
   window.error = {
-    renderError: renderError,
+    renderMessage: renderError,
   };
 })();

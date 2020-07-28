@@ -28,6 +28,6 @@
   };
 
   window.success = {
-    renderSuccess: renderSuccess,
+    renderMessage: renderSuccess,
   };
 })();
