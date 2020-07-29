@@ -69,11 +69,13 @@
 
   var featuresFilter = function (features, offer) {
 
-    var isExsistsFeatures = offer.features.filter(function (it) {
-      return features.includes(it);
-    });
-
-    return isExsistsFeatures.length === features.length;
+    for (var i = 0, j = 0; i < offer.features.length; i++) {
+      if (!offer.features.includes(features[i])) {
+        break;
+      }
+      j++;
+    }
+    return j === features.length;
   };
 
   filtersFormElement.addEventListener('change', function () {

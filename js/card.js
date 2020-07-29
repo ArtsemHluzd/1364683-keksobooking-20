@@ -37,7 +37,6 @@
     var checkDataIs = function (element, data, value) {
       if (data) {
         element.textContent = value;
-        console.log(data);
       } else {
         element.remove();
       }
@@ -75,7 +74,6 @@
         cardFeaturesElement.querySelector(selector).remove();
       }
     };
-
 
     if (ad.offer.features) {
       checkFeatureIs('wifi');
