@@ -8,6 +8,7 @@
     PALACE: 'Дворец',
   };
   var mapElement = document.querySelector('.map');
+  var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
   var removeCard = function () {
     var card = document.querySelector('.map__card');
@@ -18,7 +19,6 @@
   };
 
   var renderCard = function (ad) {
-    var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
     var card = cardTemplate.cloneNode(true);
 
     var cardAvatarElement = card.querySelector('.popup__avatar');
