@@ -7,17 +7,19 @@
   var renderSuccess = function () {
     var success = successTemplate.cloneNode(true);
 
-    var onOutsideClickCloseSuccess = function () {
+    var removeHandlersAndSuccess = function () {
       success.remove();
       document.removeEventListener('click', onOutsideClickCloseSuccess);
       document.removeEventListener('keydown', onKeydownCloseSuccess);
     };
 
+    var onOutsideClickCloseSuccess = function () {
+      removeHandlersAndSuccess();
+    };
+
     var onKeydownCloseSuccess = function (evt) {
       if (evt.key === 'Escape') {
-        success.remove();
-        document.removeEventListener('click', onOutsideClickCloseSuccess);
-        document.removeEventListener('keydown', onKeydownCloseSuccess);
+        removeHandlersAndSuccess();
       }
     };
 
