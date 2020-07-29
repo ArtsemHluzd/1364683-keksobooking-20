@@ -37,6 +37,7 @@
     var checkDataIs = function (element, data, value) {
       if (data) {
         element.textContent = value;
+        console.log(data);
       } else {
         element.remove();
       }
@@ -56,12 +57,11 @@
     checkDataIs(cardAddressElement, address, address);
     checkDataIs(cardPriceElement, price, price + '₽/ночь');
     checkDataIs(cardTypeElement, type, type);
-    checkDataIs(cardDescriptionElement, description, description);
-
     checkDataIs(cardCapacityElement, rooms, rooms + ' комнаты для ' + guests + ' гостей');
     checkDataIs(cardCapacityElement, guests, rooms + ' комнаты для ' + guests + ' гостей');
-    checkDataIs(cardCapacityElement, checkin, 'Заезд после ' + checkin + ', выезд до ' + checkout);
-    checkDataIs(cardCapacityElement, checkout, 'Заезд после ' + checkin + ', выезд до ' + checkout);
+    checkDataIs(cardTimeElement, checkin, 'Заезд после ' + checkin + ', выезд до ' + checkout);
+    checkDataIs(cardTimeElement, checkout, 'Заезд после ' + checkin + ', выезд до ' + checkout);
+    checkDataIs(cardDescriptionElement, description, description);
 
     if (ad.author.avatar) {
       cardAvatarElement.setAttribute('src', ad.author.avatar);

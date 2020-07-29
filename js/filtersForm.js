@@ -78,6 +78,7 @@
 
   filtersFormElement.addEventListener('change', function () {
     var formData = new FormData(filtersFormElement);
+    console.log(formData);
 
     var filter = {
       type: formData.get('housing-type'),
