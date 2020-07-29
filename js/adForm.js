@@ -12,6 +12,7 @@
   var formResetElement = document.querySelector('.ad-form__reset');
   var formAvatarUpload = document.querySelector('#avatar');
   var formAvatarPreview = document.querySelector('.ad-form-header__preview');
+  var imgAvatar = formAvatarPreview.querySelector('img');
   var formAddress = document.querySelector('#address');
   var formType = document.querySelector('#type');
   var formPrice = document.querySelector('#price');
@@ -19,17 +20,12 @@
   var formTimeOut = document.querySelector('#timeout');
   var formRoomNumber = document.querySelector('#room_number');
   var formCapacity = document.querySelector('#capacity');
-  var formPhotoConteiner = document.querySelector('.ad-form__photo-container');
-  var formPhotos = document.querySelector('.ad-form__photo');
-  var formUpload = document.querySelector('#images');
 
-  // очищение аватара при ресете формы
   formAvatarUpload.addEventListener('change', function () {
     var file = formAvatarUpload.files[0];
     var reader = new FileReader();
-    var img = formAvatarPreview.querySelector('img');
     reader.addEventListener('load', function () {
-      img.src = reader.result;
+      imgAvatar.src = reader.result;
     });
     reader.readAsDataURL(file);
   });
@@ -45,6 +41,7 @@
   var resetForm = function () {
     formElement.reset();
     formPrice.setAttribute('placeholder', 1000);
+    imgAvatar.src = 'img/muffin-grey.svg';
   };
 
   var disableFormFieldSets = function () {
