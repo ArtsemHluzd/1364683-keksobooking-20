@@ -13,6 +13,7 @@
   var formAvatarUpload = document.querySelector('#avatar');
   var formAvatarPreview = document.querySelector('.ad-form-header__preview');
   var imgAvatar = formAvatarPreview.querySelector('img');
+  var formTitleElement = document.querySelector('#title');
   var formAddress = document.querySelector('#address');
   var formType = document.querySelector('#type');
   var formPrice = document.querySelector('#price');
@@ -20,6 +21,8 @@
   var formTimeOut = document.querySelector('#timeout');
   var formRoomNumber = document.querySelector('#room_number');
   var formCapacity = document.querySelector('#capacity');
+  var roomNumber = Number(formRoomNumber.value);
+  var guestsNumber = Number(formCapacity.value);
 
   formAvatarUpload.addEventListener('change', function () {
     var file = formAvatarUpload.files[0];
@@ -76,22 +79,22 @@
   };
 
 
-  var getCustomValidationMessage = function (roomNumber, capacity) {
+  var getCustomValidationMessage = function (rooms, capacity) {
     var message = '';
 
-    if (roomNumber === 1 && !(capacity > 0 && capacity <= 1)) {
+    if (rooms === 1 && !(capacity > 0 && capacity <= 1)) {
       message = '1 комната — «для 1 гостя»';
     }
 
-    if (roomNumber === 2 && !(capacity > 0 && capacity <= 2)) {
+    if (rooms === 2 && !(capacity > 0 && capacity <= 2)) {
       message = '2 комнаты — «для 2 гостей» или «для 1 гостя»';
     }
 
-    if (roomNumber === 3 && !(capacity > 0 && capacity <= 3)) {
+    if (rooms === 3 && !(capacity > 0 && capacity <= 3)) {
       message = '3 комнаты — «для 3 гостей», «для 2 гостей» 3или «для 1 гостя»';
     }
 
-    if (roomNumber === 100 && capacity !== 0) {
+    if (rooms === 100 && capacity !== 0) {
       message = '100 комнат — «не для гостей»';
     }
 
@@ -131,28 +134,51 @@
     formTimeIn.value = evt.target.value;
   });
 
+  var validateRoomsAndGuests = function (room, guest) {
+    if (
+      (room === 1 && !(guest > 0 && guest <= 1)) ||
+      (room === 2 && !(guest > 0 && guest <= 2)) ||
+      (room === 3 && !(guest > 0 && guest <= 3)) ||
+      (room === 100 && guest !== 0)
+    ) {
+      formCapacity.style.border = '2px solid red';
+    } else {
+      formCapacity.style.border = '1px solid #d9d9d3';
+    }
+  };
+
   formRoomNumber.addEventListener('change', function (evt) {
-    var message = getCustomValidationMessage(
-        Number(evt.target.value),
-        Number(formCapacity.value)
-    );
+    roomNumber = Number(evt.target.value);
+    var message = getCustomValidationMessage(roomNumber, guestsNumber);
     formCapacity.setCustomValidity(message);
+    validateRoomsAndGuests(roomNumber, guestsNumber);
   });
 
   formCapacity.addEventListener('change', function (evt) {
-    var message = getCustomValidationMessage(
-        Number(formRoomNumber.value),
-        Number(evt.target.value)
-    );
+    guestsNumber = Number(evt.target.value);
+    var message = getCustomValidationMessage(roomNumber, guestsNumber);
     formCapacity.setCustomValidity(message);
+    validateRoomsAndGuests(roomNumber, guestsNumber);
   });
 
-  formCapacity.setCustomValidity(
-      getCustomValidationMessage(
-          Number(formRoomNumber.value),
-          Number(formCapacity.value)
-      )
-  );
+  formTitleElement.addEventListener('change', function (evt) {
+    if (evt.target.value.length < 30) {
+      formTitleElement.style.border = '2px solid red';
+    } else {
+      formTitleElement.style.border = '1px solid #d9d9d3';
+    }
+  });
+
+  formPrice.addEventListener('change', function (evt) {
+    debugger;
+    if (evt.target.value < Number(evt.target.min)) {
+      formPrice.style.border = '2px solid red';
+    } else {
+      formPrice.style.border = '1px solid #d9d9d3';
+    }
+  });
+
+  formCapacity.setCustomValidity(getCustomValidationMessage(roomNumber, guestsNumber));
 
   window.adForm = {
     activate: activate,
