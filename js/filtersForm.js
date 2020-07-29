@@ -68,6 +68,7 @@
   };
 
   var featuresFilter = function (features, offer) {
+
     var isExsistsFeatures = offer.features.filter(function (it) {
       return features.includes(it);
     });
@@ -97,5 +98,6 @@
     guestsFilter: guestsFilter,
     priceFilter: priceFilter,
     featuresFilter: featuresFilter,
+    filtersFormElement: filtersFormElement
   };
 })();

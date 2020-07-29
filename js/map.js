@@ -14,5 +14,6 @@
   window.map = {
     activate: activateMap,
     deactivate: deactivateMap,
+    mapElement: mapElement
   };
 })();

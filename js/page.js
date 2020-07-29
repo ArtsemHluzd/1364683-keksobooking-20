@@ -2,7 +2,7 @@
 
 (function () {
   var isActive = true;
-  var mapPin = document.querySelector('.map__pins');
+  var notice = document.querySelector('.notice');
 
   var activate = function () {
     if (isActive === true) {
@@ -19,13 +19,14 @@
           window.pin.onLoad(response);
         },
         function onLoadError() {
-          // нужно как-то обработать ошибку
-
           var div = document.createElement('div');
           div.textContent = 'Что-то пошло не так. Обратитесь в техническую поддержку';
           div.style.color = 'red';
-          console.log(div);
-          mapPin.appendChild(div);
+          div.style.margin = 'auto';
+          div.style.fontSize = '26px';
+          div.style.border = '2px solid red';
+          div.style.padding = '5px';
+          notice.prepend(div);
         }
     );
   };
