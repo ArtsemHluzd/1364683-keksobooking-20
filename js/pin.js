@@ -80,7 +80,7 @@
     });
 
     removePins();
-    window.card.removeCard();
+    window.card.remove();
     renderPins(filteredPins);
   };
 

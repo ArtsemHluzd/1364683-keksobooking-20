@@ -34,43 +34,34 @@
     var cardPhotosElement = card.querySelector('.popup__photos');
     var cardPhotoElement = cardPhotosElement.querySelector('.popup__photo');
 
-    var checkDataIs = function (element, data) {
+    var checkDataIs = function (element, data, value) {
       if (data) {
-        element.textContent = data;
+        element.textContent = value;
       } else {
         element.remove();
       }
     };
 
-    checkDataIs(cardTitleElement, ad.offer.title);
-    checkDataIs(cardAddressElement, ad.offer.address);
-    checkDataIs(cardPriceElement, ad.offer.price + '₽/ночь');
-    checkDataIs(cardTypeElement, TypeMap[ad.offer.type.toUpperCase()]);
-    checkDataIs(cardDescriptionElement, ad.offer.description);
+    var title = ad.offer.title;
+    var address = ad.offer.address;
+    var price = ad.offer.price;
+    var type = TypeMap[ad.offer.type.toUpperCase()];
+    var description = ad.offer.description;
+    var rooms = ad.offer.rooms;
+    var guests = ad.offer.guests;
+    var checkin = ad.offer.checkin;
+    var checkout = ad.offer.checkout;
 
-    if (ad.offer.rooms) {
-      cardCapacityElement.textContent = ad.offer.rooms + ' комнаты для ' + ad.offer.guests + ' гостей';
-    } else {
-      cardCapacityElement.remove();
-    }
+    checkDataIs(cardTitleElement, title, title);
+    checkDataIs(cardAddressElement, address, address);
+    checkDataIs(cardPriceElement, price, price + '₽/ночь');
+    checkDataIs(cardTypeElement, type, type);
+    checkDataIs(cardDescriptionElement, description, description);
 
-    if (ad.offer.guests) {
-      cardCapacityElement.textContent = ad.offer.rooms + ' комнаты для ' + ad.offer.guests + ' гостей';
-    } else {
-      cardCapacityElement.remove();
-    }
-
-    if (ad.offer.checkin) {
-      cardTimeElement.textContent = 'Заезд после ' + ad.offer.checkin + ', выезд до ' + ad.offer.checkout;
-    } else {
-      cardTimeElement.remove();
-    }
-
-    if (ad.offer.checkout) {
-      cardTimeElement.textContent = 'Заезд после ' + ad.offer.checkin + ', выезд до ' + ad.offer.checkout;
-    } else {
-      cardTimeElement.remove();
-    }
+    checkDataIs(cardCapacityElement, rooms, rooms + ' комнаты для ' + guests + ' гостей');
+    checkDataIs(cardCapacityElement, guests, rooms + ' комнаты для ' + guests + ' гостей');
+    checkDataIs(cardCapacityElement, checkin, 'Заезд после ' + checkin + ', выезд до ' + checkout);
+    checkDataIs(cardCapacityElement, checkout, 'Заезд после ' + checkin + ', выезд до ' + checkout);
 
     if (ad.author.avatar) {
       cardAvatarElement.setAttribute('src', ad.author.avatar);
@@ -78,30 +69,21 @@
       cardAvatarElement.remove();
     }
 
+    var checkFeatureIs = function (feature) {
+      if (!ad.offer.features.includes(feature)) {
+        var selector = '.popup__feature--' + feature;
+        cardFeaturesElement.querySelector(selector).remove();
+      }
+    };
+
+
     if (ad.offer.features) {
-      if (!ad.offer.features.includes('wifi')) {
-        cardFeaturesElement.querySelector('.popup__feature--wifi').remove();
-      }
-
-      if (!ad.offer.features.includes('dishwasher')) {
-        cardFeaturesElement.querySelector('.popup__feature--dishwasher').remove();
-      }
-
-      if (!ad.offer.features.includes('parking')) {
-        cardFeaturesElement.querySelector('.popup__feature--parking').remove();
-      }
-
-      if (!ad.offer.features.includes('washer')) {
-        cardFeaturesElement.querySelector('.popup__feature--washer').remove();
-      }
-
-      if (!ad.offer.features.includes('elevator')) {
-        cardFeaturesElement.querySelector('.popup__feature--elevator').remove();
-      }
-
-      if (!ad.offer.features.includes('conditioner')) {
-        cardFeaturesElement.querySelector('.popup__feature--conditioner').remove();
-      }
+      checkFeatureIs('wifi');
+      checkFeatureIs('dishwasher');
+      checkFeatureIs('parking');
+      checkFeatureIs('washer');
+      checkFeatureIs('elevator');
+      checkFeatureIs('conditioner');
     } else {
       cardFeaturesElement.remove();
     }
