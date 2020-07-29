@@ -69,19 +69,23 @@
   };
 
   var filterPins = function (filter) {
-    var filteredPins = data.filter(function (it) {
-      return (
-        window.filtersForm.typeFilter(filter.type, it.offer) &&
-        window.filtersForm.roomsFilter(filter.rooms, it.offer) &&
-        window.filtersForm.guestsFilter(filter.guests, it.offer) &&
-        window.filtersForm.priceFilter(filter.price, it.offer) &&
-        window.filtersForm.featuresFilter(filter.features, it.offer)
-      );
-    });
+    var filteredAds = [];
+    for (var i = 0, j = 0; i < data.length && j < PIN_LIMIT; i++) {
+      if (
+        window.filtersForm.typeFilter(filter.type, data[i].offer) &&
+        window.filtersForm.roomsFilter(filter.rooms, data[i].offer) &&
+        window.filtersForm.guestsFilter(filter.guests, data[i].offer) &&
+        window.filtersForm.priceFilter(filter.price, data[i].offer) &&
+        window.filtersForm.featuresFilter(filter.features, data[i].offer)
+      ) {
+        filteredAds.push(data[i]);
+        j++;
+      }
+    }
 
     removePins();
     window.card.remove();
-    renderPins(filteredPins);
+    renderPins(filteredAds);
   };
 
   window.pin = {

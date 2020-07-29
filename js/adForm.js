@@ -34,27 +34,6 @@
     reader.readAsDataURL(file);
   });
 
-
-
-
-
-
-
-  // очищать файлы после отправки формы
-  // на сервер отправляется только 1 файл
-  formUpload.addEventListener('change', function () {
-    var file = formUpload.files[0];
-    var photo = formPhotos.cloneNode(true);
-    var reader = new FileReader();
-    var img = photo.querySelector('img');
-    reader.addEventListener('load', function () {
-      img.src = reader.result;
-    });
-    formPhotoConteiner.appendChild(photo);
-    reader.readAsDataURL(file);
-    formPhotos.remove();
-  });
-
   var activateForm = function () {
     formElement.classList.remove('ad-form--disabled');
   };
