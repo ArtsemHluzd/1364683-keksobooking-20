@@ -21,11 +21,11 @@
         function onLoadError() {
           // нужно как-то обработать ошибку
 
-          // var div = document.createElement('div');
-          // div.textContent = 'Что-то пошло не так. Обратитесь в техническую поддержку';
-          // div.style.color = 'red';
-          // console.log(div);
-          // mapPin.appendChild(div);
+          var div = document.createElement('div');
+          div.textContent = 'Что-то пошло не так. Обратитесь в техническую поддержку';
+          div.style.color = 'red';
+          console.log(div);
+          mapPin.appendChild(div);
         }
     );
   };
@@ -38,11 +38,11 @@
     isActive = false;
 
     window.adForm.deactivate();
-    window.card.removeCard();
+    window.card.remove();
     window.filtersForm.deactivate();
     window.mainPin.resetPin();
     window.map.deactivate();
-    window.pin.removePins();
+    window.pin.remove();
   };
 
   deactivate();

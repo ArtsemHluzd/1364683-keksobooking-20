@@ -121,7 +121,7 @@
 
     var onClickCloseCard = function () {
       card.remove();
-      window.pin.deactivatePins();
+      window.pin.deactivate();
 
       cardCloseElement.removeEventListener('click', onClickCloseCard);
       window.removeEventListener('keydown', onKeydownCloseCard);
@@ -130,7 +130,7 @@
     var onKeydownCloseCard = function (evt) {
       if (evt.key === 'Escape') {
         card.remove();
-        window.pin.deactivatePins();
+        window.pin.deactivate();
 
         cardCloseElement.removeEventListener('click', onClickCloseCard);
         window.removeEventListener('keydown', onKeydownCloseCard);

@@ -4,7 +4,7 @@
   var PIN_LIMIT = 5;
   var data = [];
   var mapPinsElement = document.querySelector('.map__pins');
-  var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+  var pinTemplate = document.querySelector('#pinTemplate').content.querySelector('.map__pin');
 
   var removePins = function () {
     var pins = mapPinsElement.querySelectorAll('.map__pin');
@@ -87,9 +87,9 @@
 
   window.pin = {
     onLoad: onLoad,
-    renderPins: renderPins,
-    removePins: removePins,
-    deactivatePins: deactivatePins,
-    filterPins: window.common.debounce(filterPins, 500),
+    render: renderPins,
+    remove: removePins,
+    deactivate: deactivatePins,
+    filter: window.common.debounce(filterPins, 500),
   };
 })();

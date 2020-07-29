@@ -84,7 +84,7 @@
       features: formData.getAll('features'),
     };
 
-    window.pin.filterPins(filter);
+    window.pin.filter(filter);
   });
 
   window.filtersForm = {
