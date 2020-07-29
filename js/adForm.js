@@ -124,11 +124,11 @@
 
   var onSuccessSave = function () {
     window.page.deactivate();
-    window.success.renderSuccess();
+    window.success.render();
   };
 
   var onErrorSave = function () {
-    window.error.renderError();
+    window.error.render();
   };
 
   formElement.addEventListener('submit', function (evt) {
