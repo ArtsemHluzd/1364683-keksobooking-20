@@ -5,6 +5,8 @@
   var filtersFormFieldSetElements = filtersFormElement.querySelectorAll('fieldset');
   var filtersFormSelectElements = filtersFormElement.querySelectorAll('select');
   var SELECT_DEFAULT_VALUE = 'any';
+  var LOW_PRICE = 10000;
+  var HIGH_PRICE = 50000;
 
   var resetForm = function () {
     filtersFormElement.reset();
@@ -52,13 +54,13 @@
   var priceFilter = function (price, offer) {
     switch (price) {
       case 'middle':
-        return offer.price >= 10000 && offer.price <= 50000;
+        return offer.price >= LOW_PRICE && offer.price <= HIGH_PRICE;
 
       case 'low':
-        return offer.price <= 10000;
+        return offer.price <= LOW_PRICE;
 
       case 'high':
-        return offer.price >= 50000;
+        return offer.price >= HIGH_PRICE;
 
       default:
         return true;

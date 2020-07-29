@@ -48,11 +48,6 @@
     return pin;
   };
 
-  var onLoad = function (response) {
-    data = response;
-    renderPins(data);
-  };
-
   var renderPins = function (ads) {
     var fragment = document.createDocumentFragment();
 
@@ -67,6 +62,11 @@
     }
 
     mapPinsElement.appendChild(fragment);
+  };
+
+  var onLoad = function (response) {
+    data = response;
+    renderPins(data);
   };
 
   var filterPins = function (filter) {
