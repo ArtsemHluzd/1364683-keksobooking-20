@@ -134,50 +134,36 @@
     formTimeIn.value = evt.target.value;
   });
 
-  var validateRoomsAndGuests = function (room, guest) {
-    if (
-      (room === 1 && !(guest > 0 && guest <= 1)) ||
-      (room === 2 && !(guest > 0 && guest <= 2)) ||
-      (room === 3 && !(guest > 0 && guest <= 3)) ||
-      (room === 100 && guest !== 0)
-    ) {
-      formCapacity.style.border = '2px solid red';
+  var toggleRedBorder = function (evt) {
+    if (evt.target.validity.valid === false || evt.target.validity.customError === true) {
+      evt.target.style.border = '2px solid red';
     } else {
-      formCapacity.style.border = '1px solid #d9d9d3';
+      evt.target.style.border = '1px solid #d9d9d3';
     }
   };
+
 
   formRoomNumber.addEventListener('change', function (evt) {
     roomNumber = Number(evt.target.value);
     var message = getCustomValidationMessage(roomNumber, guestsNumber);
     formCapacity.setCustomValidity(message);
-    validateRoomsAndGuests(roomNumber, guestsNumber);
   });
 
   formCapacity.addEventListener('change', function (evt) {
     guestsNumber = Number(evt.target.value);
     var message = getCustomValidationMessage(roomNumber, guestsNumber);
     formCapacity.setCustomValidity(message);
-    validateRoomsAndGuests(roomNumber, guestsNumber);
-  });
-
-  formTitleElement.addEventListener('change', function (evt) {
-    if (evt.target.value.length < 30) {
-      formTitleElement.style.border = '2px solid red';
-    } else {
-      formTitleElement.style.border = '1px solid #d9d9d3';
-    }
-  });
-
-  formPrice.addEventListener('change', function (evt) {
-    if (evt.target.value < Number(evt.target.min)) {
-      formPrice.style.border = '2px solid red';
-    } else {
-      formPrice.style.border = '1px solid #d9d9d3';
-    }
   });
 
   formCapacity.setCustomValidity(getCustomValidationMessage(roomNumber, guestsNumber));
+
+
+  formTitleElement.addEventListener('input', toggleRedBorder);
+  formPrice.addEventListener('input', toggleRedBorder);
+  formCapacity.addEventListener('change', toggleRedBorder);
+  // formRoomNumber.addEventListener('change', function () {
+  //   toggleRedBorder(formCapacity);
+  // });
 
   window.adForm = {
     activate: activate,
