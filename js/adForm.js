@@ -21,8 +21,7 @@
   var formTimeOut = document.querySelector('#timeout');
   var formRoomNumber = document.querySelector('#room_number');
   var formCapacity = document.querySelector('#capacity');
-  var roomNumber = Number(formRoomNumber.value);
-  var guestsNumber = Number(formCapacity.value);
+  var formSubmit = document.querySelector('.ad-form__submit');
 
   formAvatarUpload.addEventListener('change', function () {
     var file = formAvatarUpload.files[0];
@@ -115,6 +114,7 @@
     window.backend.save(new FormData(formElement), onSuccessSave, onErrorSave);
   });
 
+
   formResetElement.addEventListener('click', function (evt) {
     evt.preventDefault();
     window.page.deactivate();
@@ -134,6 +134,28 @@
     formTimeIn.value = evt.target.value;
   });
 
+  formRoomNumber.addEventListener('change', function (evt) {
+    var message = getCustomValidationMessage(
+        Number(evt.target.value),
+        Number(formCapacity.value)
+    );
+    formCapacity.setCustomValidity(message);
+  });
+
+  formCapacity.addEventListener('change', function (evt) {
+    var message = getCustomValidationMessage(
+        Number(formRoomNumber.value),
+        Number(evt.target.value)
+    );
+    formCapacity.setCustomValidity(message);
+  });
+
+  formCapacity.setCustomValidity(
+      getCustomValidationMessage(
+          Number(formRoomNumber.value),
+          Number(formCapacity.value)
+      ));
+
   var toggleRedBorder = function (evt) {
     if (evt.target.validity.valid === false || evt.target.validity.customError === true) {
       evt.target.style.border = '2px solid red';
@@ -142,26 +164,11 @@
     }
   };
 
-
-  formRoomNumber.addEventListener('change', function (evt) {
-    roomNumber = Number(evt.target.value);
-    var message = getCustomValidationMessage(roomNumber, guestsNumber);
-    formCapacity.setCustomValidity(message);
+  formElement.addEventListener('input', function () {
+    formTitleElement.addEventListener('change', toggleRedBorder);
+    formPrice.addEventListener('input', toggleRedBorder);
+    formCapacity.addEventListener('change', toggleRedBorder);
   });
-
-  formCapacity.addEventListener('change', function (evt) {
-    guestsNumber = Number(evt.target.value);
-    var message = getCustomValidationMessage(roomNumber, guestsNumber);
-    formCapacity.setCustomValidity(message);
-  });
-
-  formCapacity.setCustomValidity(getCustomValidationMessage(roomNumber, guestsNumber));
-
-
-  formTitleElement.addEventListener('input', toggleRedBorder);
-  formPrice.addEventListener('input', toggleRedBorder);
-  formCapacity.addEventListener('change', toggleRedBorder);
-
 
   window.adForm = {
     activate: activate,
