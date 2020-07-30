@@ -7,6 +7,8 @@
     HOUSE: 5000,
     PALACE: 10000,
   };
+  var DEFAULT_BORDER = '1px solid #d9d9d3';
+  var RED_BORDER = '2px solid red';
   var formElement = document.querySelector('.ad-form');
   var formFieldSetElements = formElement.querySelectorAll('fieldset');
   var formResetElement = document.querySelector('.ad-form__reset');
@@ -43,6 +45,9 @@
     formElement.reset();
     formPrice.setAttribute('placeholder', 1000);
     imgAvatar.src = 'img/muffin-grey.svg';
+    formTitleElement.style.border = DEFAULT_BORDER;
+    formPrice.style.border = DEFAULT_BORDER;
+    formCapacity.style.border = DEFAULT_BORDER;
   };
 
   var disableFormFieldSets = function () {
@@ -156,13 +161,11 @@
       ));
 
   var addRedBorder = function (evt) {
-    evt.target.style.border = '2px solid red';
+    evt.target.style.border = RED_BORDER;
   };
-
-
   var addDefaultBorder = function (evt) {
     if (evt.target.validity.valid) {
-      evt.target.style.border = '1px solid #d9d9d3';
+      evt.target.style.border = DEFAULT_BORDER;
     }
   };
 
