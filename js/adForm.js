@@ -170,7 +170,6 @@
   });
 
   formPrice.addEventListener('change', function (evt) {
-    debugger;
     if (evt.target.value < Number(evt.target.min)) {
       formPrice.style.border = '2px solid red';
     } else {

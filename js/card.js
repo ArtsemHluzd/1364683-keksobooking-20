@@ -75,7 +75,7 @@
       }
     };
 
-    if (ad.offer.features) {
+    if (ad.offer.features && ad.offer.features.length > 0) {
       checkFeatureIs('wifi');
       checkFeatureIs('dishwasher');
       checkFeatureIs('parking');
@@ -86,7 +86,7 @@
       cardFeaturesElement.remove();
     }
 
-    if (ad.offer.photos) {
+    if (ad.offer.photos && ad.offer.photos.length > 0) {
       var fragment = document.createDocumentFragment();
       for (var i = 0; i < ad.offer.photos.length; i++) {
         var img = cardPhotoElement.cloneNode(true);
