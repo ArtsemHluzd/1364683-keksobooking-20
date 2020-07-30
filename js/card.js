@@ -99,7 +99,8 @@
       cardPhotosElement.remove();
     }
 
-    var onClickCloseCard = function () {
+
+    var removeHandler = function () {
       card.remove();
       window.pin.deactivate();
 
@@ -107,13 +108,13 @@
       window.removeEventListener('keydown', onKeydownCloseCard);
     };
 
+    var onClickCloseCard = function () {
+      removeHandler();
+    };
+
     var onKeydownCloseCard = function (evt) {
       if (evt.key === 'Escape') {
-        card.remove();
-        window.pin.deactivate();
-
-        cardCloseElement.removeEventListener('click', onClickCloseCard);
-        window.removeEventListener('keydown', onKeydownCloseCard);
+        removeHandler();
       }
     };
 
