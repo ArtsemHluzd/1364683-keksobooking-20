@@ -161,9 +161,7 @@
   formTitleElement.addEventListener('input', toggleRedBorder);
   formPrice.addEventListener('input', toggleRedBorder);
   formCapacity.addEventListener('change', toggleRedBorder);
-  // formRoomNumber.addEventListener('change', function () {
-  //   toggleRedBorder(formCapacity);
-  // });
+
 
   window.adForm = {
     activate: activate,

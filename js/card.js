@@ -96,7 +96,7 @@
       cardPhotosElement.appendChild(fragment);
       cardPhotoElement.remove();
     } else {
-      cardPhotoElement.remove();
+      cardPhotosElement.remove();
     }
 
     var onClickCloseCard = function () {
