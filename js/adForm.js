@@ -21,7 +21,6 @@
   var formTimeOut = document.querySelector('#timeout');
   var formRoomNumber = document.querySelector('#room_number');
   var formCapacity = document.querySelector('#capacity');
-  var formSubmit = document.querySelector('.ad-form__submit');
 
   formAvatarUpload.addEventListener('change', function () {
     var file = formAvatarUpload.files[0];
@@ -156,19 +155,24 @@
           Number(formCapacity.value)
       ));
 
-  var toggleRedBorder = function (evt) {
-    if (evt.target.validity.valid === false || evt.target.validity.customError === true) {
-      evt.target.style.border = '2px solid red';
-    } else {
+  var addRedBorder = function (evt) {
+    evt.target.style.border = '2px solid red';
+  };
+
+
+  var addDefaultBorder = function (evt) {
+    if (evt.target.validity.valid) {
       evt.target.style.border = '1px solid #d9d9d3';
     }
   };
 
-  formElement.addEventListener('input', function () {
-    formTitleElement.addEventListener('change', toggleRedBorder);
-    formPrice.addEventListener('input', toggleRedBorder);
-    formCapacity.addEventListener('change', toggleRedBorder);
-  });
+  formTitleElement.addEventListener('invalid', addRedBorder);
+  formPrice.addEventListener('invalid', addRedBorder);
+  formCapacity.addEventListener('invalid', addRedBorder);
+
+  formTitleElement.addEventListener('change', addDefaultBorder);
+  formPrice.addEventListener('change', addDefaultBorder);
+  formCapacity.addEventListener('change', addDefaultBorder);
 
   window.adForm = {
     activate: activate,
