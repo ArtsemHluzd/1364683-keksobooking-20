@@ -18,9 +18,9 @@
           window.filtersForm.activate();
           window.pin.onLoad(response);
         },
-        function onLoadError() {
+        function onLoadError(message) {
           var div = document.createElement('div');
-          div.textContent = 'Что-то пошло не так. Обратитесь в техническую поддержку';
+          div.textContent = message;
           div.style.color = 'red';
           div.style.margin = 'auto';
           div.style.fontSize = '26px';
